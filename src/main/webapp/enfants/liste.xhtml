@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head></h:head>
+
+    <h:body>
+
+        <ui:composition template="/WEB-INF/template/layout.xhtml">
+
+            <ui:define name="metadata">
+                <f:metadata>
+                    <f:viewAction action="#{enfantsListeBean.init()}"></f:viewAction>
+                </f:metadata>
+            </ui:define>
+
+            <ui:define name="title">Enfants</ui:define>
+
+            <ui:define name="content">
+                <div class="container">
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Rechercher</div>
+                            <div class="panel-body">
+                                <h:form id="form" role="form">
+                                    <p:focus context="form"/>
+                                    <div class="form-group">
+                                        <label for="form_nom">Nom</label>
+                                        <p:inputText styleClass="form-control" id="form_nom" placeholder="Nom"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form_prenom">Prénom</label>
+                                        <p:inputText styleClass="form-control" id="exampleInputPassword1" placeholder="Prénom"/>
+                                    </div>
+                                    <p:button 
+                                        styleClass="btn-primary" 
+                                        value="Rechercher"
+                                        icon="ui-icon-search"/>
+                                </h:form>   
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Enfants</div>
+                            <div class="panel-body">
+                                <p:dataTable 
+                                    var="bean" 
+                                    value="#{enfantsListeBean.lazyModel}"
+                                    paginator="true"
+                                    rowKey="#{bean.id}"
+                                    rows="20"
+                                    lazy="true">
+
+                                    <p:column headerText="Nom">
+                                        <h:outputText value="#{bean.nom}"></h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Prénom">
+                                        <h:outputText value="#{bean.prenom}"></h:outputText>
+                                    </p:column>
+
+                                    <p:column width="100">
+                                        <p:button 
+                                            outcome="details.xhtml"
+                                            styleClass="btn-default" 
+                                            icon="ui-icon-pencil">
+                                            <f:param name="id" value="#{bean.id}"></f:param>
+                                        </p:button>
+                                        <p:button styleClass="btn-default" icon="ui-icon-trash"/>
+                                    </p:column>
+
+                                </p:dataTable>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- .container -->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

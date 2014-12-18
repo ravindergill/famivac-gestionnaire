@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head></h:head>
+
+    <h:body>
+
+        <ui:composition>
+            <h:form id="form_membres" styleClass="form-horizontal" role="form">
+                <p:tabView
+                    id="tabView_membres"
+                    widgetVar="tabView_membres"
+                    dynamic="true"
+                    value="#{familleDetailsBean.membres}"
+                    var="membre">
+                    <p:tab id="tab" title="#{empty membre.id ? 'Nouveau' : membre.prenom.concat(' ').concat(membre.nom)} #{membre.referent ? '(R)' : ''}">
+                        <div class="form-group">
+                            <p:outputLabel 
+                                for="form_nom"
+                                styleClass="col-sm-3 control-label"
+                                value="Nom" />
+                            <div class="col-md-8">
+                                <p:inputText 
+                                    styleClass="form-control" 
+                                    id="form_nom" 
+                                    required="true"
+                                    maxlength="255"
+                                    value="#{membre.nom}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel 
+                                for="form_nom_naissance"
+                                styleClass="col-sm-3 control-label"
+                                value="Nom de naissance" />
+                            <div class="col-md-8">
+                                <p:inputText 
+                                    id="form_nom_naissance"
+                                    styleClass="form-control" 
+                                    maxlength="255"
+                                    value="#{membre.nomDeNaissance}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel 
+                                for="form_prenom"
+                                styleClass="col-sm-3 control-label"
+                                value="Prénom" />
+                            <div class="col-md-8">
+                                <p:inputText 
+                                    id="form_prenom"
+                                    styleClass="form-control" 
+                                    required="true"
+                                    maxlength="255"
+                                    value="#{membre.prenom}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel 
+                                for="form_sexe"
+                                styleClass="col-sm-3 control-label"
+                                value="Sexe" />
+                            <div class="col-md-8">
+                                <p:selectOneMenu 
+                                    id="form_sexe"
+                                    required="true"
+                                    value="#{membre.sexe}">
+                                    <f:selectItem itemLabel="" itemValue="" />
+                                    <f:selectItem itemLabel="Homme" itemValue="HOMME" />
+                                    <f:selectItem itemLabel="Femme" itemValue="FEMME" />
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel 
+                                for="form_date_naissance" 
+                                styleClass="col-sm-3 control-label"
+                                value="Date de naissance" />
+                            <div class="col-md-8">
+                                <p:calendar 
+                                    locale="fr"
+                                    pattern="dd/MM/yyyy"
+                                    id="form_date_naissance" 
+                                    mask="99/99/9999"
+                                    required="true"
+                                    value="#{membre.dateNaissance}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel 
+                                for="form_profession"
+                                styleClass="col-sm-3 control-label"
+                                value="Profession" />
+                            <div class="col-md-8">
+                                <p:inputText 
+                                    id="form_profession"
+                                    styleClass="form-control" 
+                                    maxlength="255"
+                                    value="#{membre.profession}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel 
+                                for="form_commune_naissance" 
+                                styleClass="col-sm-3 control-label"
+                                value="Commune de naissance" />
+                            <div class="col-md-8">
+                                <p:autoComplete
+                                    id="form_commune_naissance"
+                                    required="true"
+                                    dropdown="true"
+                                    value="#{membre.communeDeNaissance}"
+                                    converter="#{communeConverter}"
+                                    cache="true"
+                                    forceSelection="true"
+                                    var="commune"
+                                    completeMethod="#{familleDetailsBean.completeCommune}"
+                                    itemLabel="#{commune.ville}"
+                                    itemValue="#{commune}">
+                                </p:autoComplete>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-11">
+                                <p:commandButton
+                                    update=":form_membres:tabView_membres"
+                                    rendered="#{not empty membre.id and not membre.referent}"
+                                    styleClass="btn-default" 
+                                    process="@this"
+                                    value="Définir comme référent"
+                                    icon="ui-icon-person"
+                                    actionListener="#{familleDetailsBean.definirReferent(membre)}"/>
+                                <p:commandButton
+                                    update=":form_membres"
+                                    rendered="#{not empty membre.id}"
+                                    styleClass="btn-default pull-right" 
+                                    value="Sauver"
+                                    process=":form_membres:tabView_membres:tab"
+                                    icon="ui-icon-circle-check"
+                                    actionListener="#{familleDetailsBean.updateMembre(membre)}"/>
+                                <p:commandButton
+                                    update=":form_membres"
+                                    rendered="#{empty membre.id}"
+                                    styleClass="btn-default pull-right" 
+                                    process=":form_membres:tabView_membres:tab"
+                                    value="Sauver"
+                                    icon="ui-icon-circle-check"
+                                    actionListener="#{familleDetailsBean.ajouterMembre(membre)}"/>
+                                <p:commandButton
+                                    update=":form_membres"
+                                    process="@this"
+                                    rendered="#{empty membre.id}"
+                                    styleClass="btn-default pull-right" 
+                                    value="Annuler"
+                                    actionListener="#{familleDetailsBean.annulerAjoutMembre(membre)}"/>
+                                <p:commandButton 
+                                    update=":form_membres"
+                                    rendered="#{not empty membre.id and not membre.referent}"
+                                    styleClass="btn-default pull-right"
+                                    icon="ui-icon-circle-minus"
+                                    process="@this"
+                                    actionListener="#{familleDetailsBean.retirerMembre(membre)}"
+                                    value="Retirer">
+                                    <p:confirm 
+                                        header="Confirmation" 
+                                        message="Êtes vous sûr de vouloir supprimer ce membre ?" 
+                                        icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true">
+                                    <p:commandButton 
+                                        value="Oui" 
+                                        type="button" 
+                                        styleClass="ui-confirmdialog-yes pull-right" 
+                                        icon="ui-icon-check" />
+                                    <p:commandButton 
+                                        value="Non" 
+                                        type="button" 
+                                        styleClass="ui-confirmdialog-no pull-right" 
+                                        icon="ui-icon-close" />
+                                </p:confirmDialog>
+                            </div>
+                        </div>
+
+                    </p:tab>
+                </p:tabView>
+                <hr/>
+                <p:commandButton
+                    process="@this"
+                    update=":form_membres"
+                    styleClass="btn-default pull-right" 
+                    value="Ajouter membre"
+                    icon="ui-icon-plus"
+                    oncomplete="PF('tabView_membres').select(PF('tabView_membres').getLength() - 1)"
+                    disabled="#{familleDetailsBean.ajouterMembreEnCours}"
+                    actionListener="#{familleDetailsBean.ajouterMembre()}"/>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>
+

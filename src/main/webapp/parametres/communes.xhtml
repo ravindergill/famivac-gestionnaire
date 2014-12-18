@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head></h:head>
+
+    <h:body>
+
+        <ui:composition template="/parametres/layout.xhtml">
+
+            <ui:define name="metadata">
+                <f:metadata>
+                    <f:viewAction action="#{communesListeBean.init()}"></f:viewAction>
+                </f:metadata>
+            </ui:define>
+
+            <ui:define name="title">Utilisateurs</ui:define>
+
+            <ui:define name="parametres-contenu">
+
+                <div class="col-md-9">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Communes
+                        </div>
+                        <div class="panel-body">
+                            <p:dataTable 
+                                id="datatable"
+                                var="bean" 
+                                value="#{communesListeBean.lazyModel}"
+                                paginator="true"
+                                rowKey="#{bean.id}"
+                                rows="20"
+                                lazy="true">
+
+                                <p:column headerText="Code">
+                                    <h:outputText value="#{bean.code}"></h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Ville">
+                                    <h:outputText value="#{bean.ville}"></h:outputText>
+                                </p:column>
+
+                                <p:column width="100">
+                                    <h:form styleClass="pull-right">
+                                        <p:commandButton 
+                                            styleClass="btn-default"
+                                            icon="ui-icon-trash"
+                                            actionListener="#{communesListeBean.delete(bean.code)}"
+                                            update=":datatable">
+                                            <p:confirm 
+                                                header="Confirmation" 
+                                                message="Êtes vous sûr de vouloir supprimer cette commune ?" 
+                                                icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                        <p:confirmDialog global="true">
+                                            <p:commandButton 
+                                                value="Oui" 
+                                                type="button" 
+                                                styleClass="ui-confirmdialog-yes pull-right" 
+                                                icon="ui-icon-check" />
+                                            <p:commandButton 
+                                                value="Non" 
+                                                type="button" 
+                                                styleClass="ui-confirmdialog-no pull-right" 
+                                                icon="ui-icon-close" />
+                                        </p:confirmDialog>
+                                    </h:form>
+                                </p:column>
+
+                            </p:dataTable>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Commune
+                        </div>
+                        <div class="panel-body">
+                            <h:form id="form" styleClass="form-horizontal" role="form">
+                                <p:focus for="form"></p:focus>
+                                <div class="form-group">
+                                    <p:outputLabel 
+                                        for="form_code" 
+                                        styleClass="col-sm-3 control-label"
+                                        value="Code" />
+                                    <div class="col-md-8">
+                                        <p:inputText 
+                                            styleClass="form-control" 
+                                            id="form_code" 
+                                            placeholder="Code"
+                                            required="true"
+                                            maxlength="255"
+                                            value="#{communesListeBean.form.code}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <p:outputLabel 
+                                        for="form_ville" 
+                                        styleClass="col-sm-3 control-label"
+                                        value="Ville" />
+                                    <div class="col-md-8">
+                                        <p:inputText 
+                                            styleClass="form-control" 
+                                            id="form_ville" 
+                                            placeholder="Ville"
+                                            required="true"
+                                            maxlength="255"
+                                            value="#{communesListeBean.form.ville}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <p:commandButton
+                                            styleClass="btn-primary pull-right" 
+                                            value="Ajouter"
+                                            update="@form :datatable"
+                                            icon="ui-icon-plus"
+                                            actionListener="#{communesListeBean.ajouter()}"/>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
