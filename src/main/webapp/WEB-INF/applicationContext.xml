@@ -12,7 +12,7 @@
     <http pattern="/login.html" security="none"/>
     
     <http>
-        <intercept-url pattern="/monitoring/**" access="ROLE_MONITOR" />
+        <intercept-url pattern="/monitoring/**" access="ROLE_MONITORING" />
         <intercept-url pattern="/faces/parametres/**" access="ROLE_ADMIN" />
         <intercept-url pattern="/faces/**" access="ROLE_USER" />
         <form-login 
