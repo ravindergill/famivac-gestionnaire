@@ -34,7 +34,12 @@
             <groupId>org.primefaces.themes</groupId>  
             <artifactId>bootstrap</artifactId>  
             <version>1.0.10</version>  
-        </dependency>  
+        </dependency>
+        <dependency>
+            <groupId>net.bull.javamelody</groupId>
+            <artifactId>javamelody-core</artifactId>
+            <version>1.54.0</version>
+        </dependency>
     </dependencies>
     
     <profiles>

@@ -21,15 +21,18 @@ import java.util.stream.Collectors;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import net.bull.javamelody.MonitoringInterceptor;
 
 /**
  * @author paoesco
  */
 @Stateless
 @LocalBean
+@Interceptors({MonitoringInterceptor.class})
 public class FamilleService {
 
     @Inject
