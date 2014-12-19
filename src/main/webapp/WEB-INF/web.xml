@@ -32,7 +32,7 @@
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping> 
     
     <filter>
         <filter-name>monitoring</filter-name>
@@ -51,12 +51,12 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     
-    <security-constraint>
+<!--    <security-constraint>
         <display-name>Restrict raw XHTML Documents</display-name>
         <web-resource-collection>
             <web-resource-name>XHTML</web-resource-name>
             <url-pattern>*.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint />
-    </security-constraint>
+    </security-constraint>-->
 </web-app>
