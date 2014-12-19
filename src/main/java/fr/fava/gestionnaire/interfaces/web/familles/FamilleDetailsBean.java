@@ -90,7 +90,7 @@ public class FamilleDetailsBean implements Serializable {
     }
 
     public void update() {
-        familleService.update(form);
+        familleService.update(form); 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informations sur la famille sauvées", ""));
     }
 
