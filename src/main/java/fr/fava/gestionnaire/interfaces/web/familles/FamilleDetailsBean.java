@@ -116,7 +116,7 @@ public class FamilleDetailsBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informations sur le membre sauvées", ""));
     }
 
-    public void sauverMembre(MembreDTO membre) {
+    public void ajouterMembre(MembreDTO membre) {
         Long membreId = familleService.addMembre(id, membre);
         membre.setId(membreId);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informations sur le membre sauvées", ""));
