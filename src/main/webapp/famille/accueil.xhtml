@@ -19,6 +19,8 @@
                 <div class="col-md-8">
                     <p:selectManyCheckbox
                         id="form_periodes"
+                        columns="3"
+                        layout="grid"
                         value="#{familleDetailsBean.form.periodesAccueil}">
                         <f:selectItem itemLabel="Hiver" itemValue="HIVER" />
                         <f:selectItem itemLabel="Printemps" itemValue="PRINTEMPS" />
@@ -62,6 +64,8 @@
                 <div class="col-md-8">
                     <p:selectManyCheckbox
                         id="form_tranches"
+                        columns="3"
+                        layout="grid"
                         value="#{familleDetailsBean.form.tranchesAges}">
                         <f:selectItem itemLabel="moins de 6 ans" itemValue="MOINS_DE_6_ANS" />
                         <f:selectItem itemLabel="6 à 9 ans" itemValue="DE_6_A_9_ANS" />
@@ -76,7 +80,7 @@
                     for="form_nombreFillesSouhaitees" 
                     styleClass="col-sm-3 control-label"
                     value="Nombre filles souhaitées" />
-                <div class="col-md-8">
+                <div class="col-md-2">
                     <p:inputText
                         styleClass="form-control" 
                         id="form_nombreFillesSouhaitees" 
@@ -88,7 +92,7 @@
                     for="form_nombreGarconsSouhaites" 
                     styleClass="col-sm-3 control-label"
                     value="Nombre gatçons souhaités" />
-                <div class="col-md-8">
+                <div class="col-md-2">
                     <p:inputText
                         styleClass="form-control" 
                         id="form_nombreGarconsSouhaites" 

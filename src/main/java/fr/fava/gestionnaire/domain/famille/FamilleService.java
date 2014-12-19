@@ -101,7 +101,7 @@ public class FamilleService {
             return p.name();
         }).collect(Collectors.toList());
         String[] tabTranches = new String[tranches.size()];
-        response.setPeriodesAccueil(periodes.toArray(tabTranches));
+        response.setTranchesAges(tranches.toArray(tabTranches));
         response.setNombreFillesSouhaitees(famille.getNombreFillesSouhaitees());
         response.setNombreGarconsSouhaites(famille.getNombreGarconsSouhaites());
         return response;

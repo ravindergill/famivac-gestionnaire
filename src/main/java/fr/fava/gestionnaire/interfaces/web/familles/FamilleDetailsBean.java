@@ -73,10 +73,9 @@ public class FamilleDetailsBean implements Serializable {
         ajouterMembreEnCours = false;
         activeIndex = 0;
         membres = new ArrayList<>();
-        for (MembreDTO dto : bean.getMembres()) {
-            MembreDTO membre = membreService.retrieve(dto.getId());
+        bean.getMembres().stream().map((dto) -> membreService.retrieve(dto.getId())).forEach((membre) -> {
             membres.add(membre);
-        }
+        });
         membres.sort((MembreDTO m1, MembreDTO m2) -> {
             if (m1.isReferent()) {
                 return -1;
