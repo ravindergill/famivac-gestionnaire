@@ -12,7 +12,7 @@
         <ui:insert name="metadata"></ui:insert>
 
         <h:head>
-            <title>VEF (GEST) - <ui:insert name="title"></ui:insert></title>
+            <title>FAVA (GEST) - <ui:insert name="title"></ui:insert></title>
             <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/bootstrap-3.3.1/css/bootstrap.min.css"/>
             <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/bootstrap-3.3.1/css/bootstrap-theme.min.css"/>
             <h:outputScript library="primefaces" name="jquery/jquery.js"/>
@@ -39,7 +39,7 @@
                             <li><h:link outcome="/familles/liste.xhtml" value="Familles" /></li>
                             <!--<li><h:link outcome="/enfants/liste.xhtml" value="Enfants" /></li>-->
                             <!--<li><h:link outcome="/inscriptions/liste.xhtml" value="Inscriptions enfants" /></li>-->
-                            <li><h:link outcome="/parametres/communes.xhtml" value="Paramètres" /></li>
+                            <li><h:link rendered="#{request.isUserInRole('ROLE_ADMIN')}" outcome="/parametres/communes.xhtml" value="Paramètres" /></li>
                         </ul>
                     </div><!--/.navbar-collapse -->
                 </div>
