@@ -3,7 +3,7 @@ package fr.fava.gestionnaire.domain.model;
 /**
  * @author Paolo
  */
-public enum AvisRecrutement {
+public enum Avis {
 
     FAVORABLE, RESERVE, DEFAVORABLE;
 }

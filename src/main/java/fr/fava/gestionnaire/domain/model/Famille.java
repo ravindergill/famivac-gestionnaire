@@ -55,9 +55,9 @@ public class Famille implements Serializable {
     @Enumerated(EnumType.STRING)
     private Set<PeriodeAccueil> periodesSouhaitees;
 
-    private boolean vacancesCompletes;
+    private boolean sejoursComplets;
 
-    private String precisionSiVacancesNonCompletes;
+    private String precisionsSejoursNonComplets;
 
     @Column(nullable = false)
     private String projet;
@@ -90,7 +90,15 @@ public class Famille implements Serializable {
     private Date dateRecrutement;
 
     @Enumerated(EnumType.STRING)
-    private AvisRecrutement avis;
+    private Avis avisRecrutement;
+
+    private boolean visiteDdcs;
+
+    @Temporal(TemporalType.DATE)
+    private Date dateVisiteDdcs;
+
+    @Enumerated(EnumType.STRING)
+    private Avis avisDdcs;
 
     protected Famille() {
         adresse = new Adresse();
@@ -177,20 +185,20 @@ public class Famille implements Serializable {
         }
     }
 
-    public boolean isVacancesCompletes() {
-        return vacancesCompletes;
+    public boolean isSejoursComplets() {
+        return sejoursComplets;
     }
 
-    public void setVacancesCompletes(boolean vacancesCompletes) {
-        this.vacancesCompletes = vacancesCompletes;
+    public void setSejoursComplets(boolean sejoursComplets) {
+        this.sejoursComplets = sejoursComplets;
     }
 
-    public String getPrecisionSiVacancesNonCompletes() {
-        return precisionSiVacancesNonCompletes;
+    public String getPrecisionsSejoursNonComplets() {
+        return precisionsSejoursNonComplets;
     }
 
-    public void setPrecisionSiVacancesNonCompletes(String precisionSiVacancesNonCompletes) {
-        this.precisionSiVacancesNonCompletes = precisionSiVacancesNonCompletes;
+    public void setPrecisionsSejoursNonComplets(String precisionsSejoursNonComplets) {
+        this.precisionsSejoursNonComplets = precisionsSejoursNonComplets;
     }
 
     public String getProjet() {
@@ -294,12 +302,36 @@ public class Famille implements Serializable {
         this.dateRecrutement = dateRecrutement;
     }
 
-    public AvisRecrutement getAvis() {
-        return avis;
+    public Avis getAvisRecrutement() {
+        return avisRecrutement;
     }
 
-    public void setAvis(AvisRecrutement avis) {
-        this.avis = avis;
+    public void setAvisRecrutement(Avis avisRecrutement) {
+        this.avisRecrutement = avisRecrutement;
+    }
+
+    public boolean isVisiteDdcs() {
+        return visiteDdcs;
+    }
+
+    public void setVisiteDdcs(boolean visiteDdcs) {
+        this.visiteDdcs = visiteDdcs;
+    }
+
+    public Date getDateVisiteDdcs() {
+        return dateVisiteDdcs;
+    }
+
+    public void setDateVisiteDdcs(Date dateVisiteDdcs) {
+        this.dateVisiteDdcs = dateVisiteDdcs;
+    }
+
+    public Avis getAvisDdcs() {
+        return avisDdcs;
+    }
+
+    public void setAvisDdcs(Avis avisDdcs) {
+        this.avisDdcs = avisDdcs;
     }
 
 }

@@ -48,18 +48,18 @@
             </div>
             <div class="form-group">
                 <p:outputLabel 
-                    for="form_vacances_completes" 
+                    for="input_sejours_complets" 
                     styleClass="col-sm-4 text-right"
-                    value="Vac. complètes ?" />
+                    value="Séjours complets ?" />
                 <div class="col-md-7">
                     <p:selectBooleanCheckbox
-                        id="form_vacances_completes"
-                        value="#{familleDetailsBean.form.vacancesCompletes}"/>
+                        id="input_sejours_complets"
+                        value="#{familleDetailsBean.form.sejoursComplets}"/>
                 </div>
             </div>
             <div class="form-group">
                 <p:outputLabel 
-                    for="form_precisions" 
+                    for="input_precisions" 
                     styleClass="col-sm-4 control-label"
                     value="Si non, précisez" />
                 <div class="col-md-7">
@@ -67,9 +67,9 @@
                         styleClass="form-control" 
                         rows="3"
                         autoResize="false"
-                        id="form_precisions" 
+                        id="input_precisions" 
                         maxlength="255"
-                        value="#{familleDetailsBean.form.precisionSiVacancesNonCompletes}"/>
+                        value="#{familleDetailsBean.form.precisionsSejoursNonComplets}"/>
                 </div>
             </div>
             <div class="form-group">
