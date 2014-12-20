@@ -24,15 +24,13 @@ public class Adresse implements Serializable {
     @JoinColumn(nullable = false)
     private Commune commune;
 
-    protected Adresse() {
+    public Adresse() {
 
     }
 
     public Adresse(String ligneAdresseUne, String ligneAdresseDeux, Commune commune) {
         if (ligneAdresseUne == null
                 || ligneAdresseUne.isEmpty()
-                || ligneAdresseDeux == null
-                || ligneAdresseDeux.isEmpty()
                 || commune == null) {
             throw new IllegalArgumentException("Tous les paramètres sont obligatoires");
         }
@@ -45,7 +43,7 @@ public class Adresse implements Serializable {
         return ligneAdresseUne;
     }
 
-    protected void setLigneAdresseUne(String ligneAdresseUne) {
+    public void setLigneAdresseUne(String ligneAdresseUne) {
         this.ligneAdresseUne = ligneAdresseUne;
     }
 
@@ -53,7 +51,7 @@ public class Adresse implements Serializable {
         return ligneAdresseDeux;
     }
 
-    protected void setLigneAdresseDeux(String ligneAdresseDeux) {
+    public void setLigneAdresseDeux(String ligneAdresseDeux) {
         this.ligneAdresseDeux = ligneAdresseDeux;
     }
 
@@ -61,7 +59,7 @@ public class Adresse implements Serializable {
         return commune;
     }
 
-    protected void setCommune(Commune commune) {
+    public void setCommune(Commune commune) {
         if (commune.getCode() == null || commune.getCode().isEmpty()) {
             throw new IllegalArgumentException("Le code commune est obligatoire");
         }

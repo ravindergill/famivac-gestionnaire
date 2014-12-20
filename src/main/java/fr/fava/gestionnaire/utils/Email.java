@@ -26,7 +26,7 @@ import javax.validation.constraints.Pattern;
  */
 public @interface Email {
 
-    String message() default "{com.vef.site.validation.constraints.Email.message}";
+    String message() default "{fr.fava.gestionnaire.utils.Email.message}";
 
     Class<?>[] groups() default {};
 

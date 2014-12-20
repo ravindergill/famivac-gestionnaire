@@ -1,5 +1,6 @@
 package fr.fava.gestionnaire.domain.famille.dto;
 
+import fr.fava.gestionnaire.domain.model.Adresse;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -9,22 +10,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class CreateFamilleRequestDTO {
 
-    private AdresseDTO adresse;
+    private Adresse adresse;
 
     private String projet;
 
     private MembreDTO membrePrincipal;
     
     public CreateFamilleRequestDTO(){
-        adresse = new AdresseDTO();
+        adresse = new Adresse();
         membrePrincipal = new MembreDTO();
     }
 
-    public AdresseDTO getAdresse() {
+    public Adresse getAdresse() {
         return adresse;
     }
 
-    public void setAdresse(AdresseDTO adresse) {
+    public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
 

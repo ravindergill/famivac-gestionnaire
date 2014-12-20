@@ -1,5 +1,6 @@
 package fr.fava.gestionnaire.domain.model;
 
+import fr.fava.gestionnaire.utils.Email;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -54,8 +55,14 @@ public class MembreFamille implements Serializable {
 
     private String profession;
 
-    @Column
     private String lienDeParente;
+
+    private String tel1;
+
+    private String tel2;
+
+    @Email
+    private String email;
 
     protected MembreFamille() {
 
@@ -130,7 +137,7 @@ public class MembreFamille implements Serializable {
     public String getLienDeParente() {
         return lienDeParente;
     }
-    
+
     public void setNom(String nom) {
         if (nom == null || nom.isEmpty()) {
             throw new IllegalArgumentException("Le nom est obligatoire");
@@ -182,6 +189,30 @@ public class MembreFamille implements Serializable {
         this.lienDeParente = lienDeParente;
     }
 
+    public String getTel1() {
+        return tel1;
+    }
+
+    public void setTel1(String tel1) {
+        this.tel1 = tel1;
+    }
+
+    public String getTel2() {
+        return tel2;
+    }
+
+    public void setTel2(String tel2) {
+        this.tel2 = tel2;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -198,10 +229,7 @@ public class MembreFamille implements Serializable {
             return false;
         }
         final MembreFamille other = (MembreFamille) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 
 }

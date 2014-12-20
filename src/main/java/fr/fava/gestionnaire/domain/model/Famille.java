@@ -2,8 +2,11 @@ package fr.fava.gestionnaire.domain.model;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -11,12 +14,15 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * @author paoesco
@@ -39,17 +45,16 @@ public class Famille implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private final Set<MembreFamille> membres;
 
     @Embedded
     private final Adresse adresse;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<PeriodeAccueil> periodesSouhaitees;
 
-    @Column(nullable = false)
     private boolean vacancesCompletes;
 
     private String precisionSiVacancesNonCompletes;
@@ -57,10 +62,10 @@ public class Famille implements Serializable {
     @Column(nullable = false)
     private String projet;
 
-    @OneToMany
-    private Set<Chambre> chambres;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    private final Set<Chambre> chambres;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<TrancheAgeEnfant> tranchesAges;
 
@@ -69,6 +74,23 @@ public class Famille implements Serializable {
     private Integer nombreFillesSouhaitees;
 
     private Integer nombreGarconsSouhaites;
+
+    private boolean accepteHandicap;
+
+    private boolean accepteMalade;
+
+    private boolean extraitCasierJudiciaire;
+
+    @Temporal(TemporalType.DATE)
+    private Date dateReceptionCasierJudiciaire;
+
+    private String nomRecruteur;
+
+    @Temporal(TemporalType.DATE)
+    private Date dateRecrutement;
+
+    @Enumerated(EnumType.STRING)
+    private AvisRecrutement avis;
 
     protected Famille() {
         adresse = new Adresse();
@@ -118,6 +140,22 @@ public class Famille implements Serializable {
         this.membres.remove(membre);
     }
 
+    public MembreFamille getMembreReferent() {
+        return membres.stream().filter((MembreFamille m) -> {
+            return m.isReferent();
+        }).findFirst().get();
+    }
+
+    public void definirReferent(Long id) {
+        membres.stream().forEach((MembreFamille m) -> {
+            if (m.getId().equals(id)) {
+                m.setReferent(true);
+            } else {
+                m.setReferent(false);
+            }
+        });
+    }
+
     public Long getId() {
         return id;
     }
@@ -126,90 +164,58 @@ public class Famille implements Serializable {
         return Collections.unmodifiableSet(membres);
     }
 
-    public MembreFamille getMembreReferent() {
-        return membres.stream().filter((MembreFamille m) -> {
-            return m.isReferent();
-        }).findFirst().get();
+    public String[] getPeriodesSouhaitees() {
+        return periodesSouhaitees.stream().map((PeriodeAccueil p) -> {
+            return p.name();
+        }).collect(Collectors.toList()).toArray(new String[periodesSouhaitees.size()]);
     }
 
-    public Adresse getAdresse() {
-        return adresse;
-    }
-
-    public Set<PeriodeAccueil> getPeriodesSouhaitees() {
-        return Collections.unmodifiableSet(periodesSouhaitees);
+    public void setPeriodesSouhaitees(String[] periodesSouhaitees) {
+        this.periodesSouhaitees.clear();
+        for (String p : periodesSouhaitees) {
+            this.periodesSouhaitees.add(PeriodeAccueil.valueOf(p));
+        }
     }
 
     public boolean isVacancesCompletes() {
         return vacancesCompletes;
     }
 
-    public String getPrecisionSiVacancesNonCompletes() {
-        return precisionSiVacancesNonCompletes;
-    }
-
-    public String getProjet() {
-        return projet;
-    }
-
     public void setVacancesCompletes(boolean vacancesCompletes) {
         this.vacancesCompletes = vacancesCompletes;
+    }
+
+    public String getPrecisionSiVacancesNonCompletes() {
+        return precisionSiVacancesNonCompletes;
     }
 
     public void setPrecisionSiVacancesNonCompletes(String precisionSiVacancesNonCompletes) {
         this.precisionSiVacancesNonCompletes = precisionSiVacancesNonCompletes;
     }
 
+    public String getProjet() {
+        return projet;
+    }
+
     public void setProjet(String projet) {
-        if (projet == null || projet.isEmpty()) {
-            throw new IllegalArgumentException("Le projet est obligatoire");
-        }
         this.projet = projet;
     }
 
-    public void setLigneAdresseUne(String ligneAdresseUne) {
-        if (ligneAdresseUne == null || ligneAdresseUne.isEmpty()) {
-            throw new IllegalArgumentException("La ligne adresse une est obligatoire");
-        }
-        this.adresse.setLigneAdresseUne(ligneAdresseUne);
+    public List<Chambre> getChambres() {
+        return chambres.stream().collect(Collectors.toList());
     }
 
-    public void setLigneAdresseDeux(String ligneAdresseDeux) {
-        if (ligneAdresseDeux == null || ligneAdresseDeux.isEmpty()) {
-            throw new IllegalArgumentException("La ligne adresse deux est obligatoire");
-        }
-        this.adresse.setLigneAdresseDeux(ligneAdresseDeux);
+    public String[] getTranchesAges() {
+        return tranchesAges.stream().map((TrancheAgeEnfant t) -> {
+            return t.name();
+        }).collect(Collectors.toList()).toArray(new String[tranchesAges.size()]);
     }
 
-    public void setCommune(Commune commune) {
-        if (commune == null) {
-            throw new IllegalArgumentException("La commune est obligatoire");
-        }
-        this.adresse.setCommune(commune);
-    }
-
-    public void ajouterPeriodeSouhaitee(PeriodeAccueil periode) {
-        this.periodesSouhaitees.add(periode);
-    }
-
-    public void clearPeriodesSouhaitees() {
-        this.periodesSouhaitees.clear();
-    }
-
-    public Set<Chambre> getChambres() {
-        return Collections.unmodifiableSet(chambres);
-    }
-
-    public Set<TrancheAgeEnfant> getTranchesAges() {
-        return Collections.unmodifiableSet(tranchesAges);
-    }
-
-    public void ajouterTrancheAge(TrancheAgeEnfant tranche) {
-        this.tranchesAges.add(tranche);
-    }
-
-    public void clearTranchesAges() {
+    public void setTranchesAges(String[] tranchesAges) {
         this.tranchesAges.clear();
+        for (String t : tranchesAges) {
+            this.tranchesAges.add(TrancheAgeEnfant.valueOf(t));
+        }
     }
 
     public String getConnaissanceAssociation() {
@@ -234,6 +240,66 @@ public class Famille implements Serializable {
 
     public void setNombreGarconsSouhaites(Integer nombreGarconsSouhaites) {
         this.nombreGarconsSouhaites = nombreGarconsSouhaites;
+    }
+
+    public boolean isAccepteHandicap() {
+        return accepteHandicap;
+    }
+
+    public void setAccepteHandicap(boolean accepteHandicap) {
+        this.accepteHandicap = accepteHandicap;
+    }
+
+    public boolean isAccepteMalade() {
+        return accepteMalade;
+    }
+
+    public void setAccepteMalade(boolean accepteMalade) {
+        this.accepteMalade = accepteMalade;
+    }
+
+    public Adresse getAdresse() {
+        return adresse;
+    }
+
+    public boolean isExtraitCasierJudiciaire() {
+        return extraitCasierJudiciaire;
+    }
+
+    public void setExtraitCasierJudiciaire(boolean extraitCasierJudiciaire) {
+        this.extraitCasierJudiciaire = extraitCasierJudiciaire;
+    }
+
+    public Date getDateReceptionCasierJudiciaire() {
+        return dateReceptionCasierJudiciaire;
+    }
+
+    public void setDateReceptionCasierJudiciaire(Date dateReceptionCasierJudiciaire) {
+        this.dateReceptionCasierJudiciaire = dateReceptionCasierJudiciaire;
+    }
+
+    public String getNomRecruteur() {
+        return nomRecruteur;
+    }
+
+    public void setNomRecruteur(String nomRecruteur) {
+        this.nomRecruteur = nomRecruteur;
+    }
+
+    public Date getDateRecrutement() {
+        return dateRecrutement;
+    }
+
+    public void setDateRecrutement(Date dateRecrutement) {
+        this.dateRecrutement = dateRecrutement;
+    }
+
+    public AvisRecrutement getAvis() {
+        return avis;
+    }
+
+    public void setAvis(AvisRecrutement avis) {
+        this.avis = avis;
     }
 
 }

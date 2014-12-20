@@ -11,7 +11,7 @@ import javax.persistence.NamedQuery;
  * @author paoesco
  */
 @Entity
-@NamedQuery(name = Commune.QUERY_RETRIEVE_ALL, query = "select c from Commune c order by ville")
+@NamedQuery(name = Commune.QUERY_RETRIEVE_ALL, query = "select c from Commune c order by c.ville")
 public class Commune implements Serializable {
 
     public static final String QUERY_RETRIEVE_ALL = "communeRetrieveAll";
@@ -22,7 +22,7 @@ public class Commune implements Serializable {
     @Column(nullable = false)
     private String ville;
 
-    protected Commune() {
+    public Commune() {
 
     }
 
@@ -38,14 +38,15 @@ public class Commune implements Serializable {
         return code;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getVille() {
         return ville;
     }
 
     public void setVille(String ville) {
-        if (ville == null || ville.isEmpty()) {
-            throw new IllegalArgumentException("La ville est obligatoire");
-        }
         this.ville = ville;
     }
 

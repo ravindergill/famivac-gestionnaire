@@ -43,6 +43,9 @@
                                         <p:tab title="Séjours">
                                             Indisponible
                                         </p:tab>
+                                        <p:tab id="tab_formalites" title="Formalités">
+                                            <ui:include src="formalites.xhtml" />
+                                        </p:tab>
                                         <p:tab id="tab_autre" title="Autre">
                                             <div class="form-group">
                                                 <p:outputLabel 
@@ -78,7 +81,6 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">Membres</div>
                             <div class="panel-body">
-
                                 <ui:include src="membres.xhtml"></ui:include>
                             </div>
                         </div>

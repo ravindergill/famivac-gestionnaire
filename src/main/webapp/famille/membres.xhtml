@@ -12,6 +12,11 @@
 
         <ui:composition>
             <h:form id="form_membres" styleClass="form-horizontal" role="form">
+                <div class="col-md-4">
+                    <h:outputText value="Nombre total de membres :"></h:outputText>
+                    <span class="badge"><h:outputText value="#{familleDetailsBean.membres.size()}"></h:outputText></span>
+                </div>
+                <br />
                 <p:tabView
                     id="tabView_membres"
                     widgetVar="tabView_membres"
@@ -106,6 +111,19 @@
                         </div>
                         <div class="form-group">
                             <p:outputLabel 
+                                for="input_lien_parente"
+                                styleClass="col-sm-3 control-label"
+                                value="Lien de parenté" />
+                            <div class="col-md-8">
+                                <p:inputText 
+                                    id="input_lien_parente"
+                                    styleClass="form-control" 
+                                    maxlength="255"
+                                    value="#{membre.lienDeParente}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel 
                                 for="form_commune_naissance" 
                                 styleClass="col-sm-3 control-label"
                                 value="Commune de naissance" />
@@ -126,9 +144,48 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <p:outputLabel 
+                                for="form_tel1"
+                                styleClass="col-sm-3 control-label"
+                                value="Téléphone 1" />
+                            <div class="col-md-4">
+                                <p:inputText 
+                                    id="form_tel1"
+                                    styleClass="form-control" 
+                                    maxlength="10"
+                                    value="#{membre.tel1}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel 
+                                for="form_tel2"
+                                styleClass="col-sm-3 control-label"
+                                value="Téléphone 2" />
+                            <div class="col-md-4">
+                                <p:inputText 
+                                    id="form_tel2"
+                                    styleClass="form-control" 
+                                    maxlength="10"
+                                    value="#{membre.tel2}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel 
+                                for="form_email"
+                                styleClass="col-sm-3 control-label"
+                                value="Email" />
+                            <div class="col-md-8">
+                                <p:inputText 
+                                    id="form_email"
+                                    styleClass="form-control" 
+                                    maxlength="255"
+                                    value="#{membre.email}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-md-11">
                                 <p:commandButton
-                                    update=":form_membres:tabView_membres"
+                                    update=":form_membres:tabView_membres :form:tabView_famille:panel_membre_referent"
                                     rendered="#{not empty membre.id and not membre.referent}"
                                     styleClass="btn-default" 
                                     process="@this"
@@ -136,7 +193,7 @@
                                     icon="ui-icon-person"
                                     actionListener="#{familleDetailsBean.definirReferent(membre)}"/>
                                 <p:commandButton
-                                    update=":form_membres"
+                                    update=":form_membres :form:tabView_famille:panel_membre_referent"
                                     rendered="#{not empty membre.id}"
                                     styleClass="btn-default pull-right" 
                                     value="Sauver"

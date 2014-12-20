@@ -17,8 +17,7 @@
         <intercept-url pattern="/faces/**" access="ROLE_USER" />
         <form-login 
             login-page='/login.html'
-            default-target-url='/faces/index.xhtml'
-            always-use-default-target='true'/>
+            default-target-url='/faces/index.xhtml'/>
     </http>
     
     <authentication-manager>

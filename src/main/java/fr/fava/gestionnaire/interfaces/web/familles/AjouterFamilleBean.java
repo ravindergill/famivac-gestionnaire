@@ -2,7 +2,7 @@ package fr.fava.gestionnaire.interfaces.web.familles;
 
 import fr.fava.gestionnaire.domain.famille.FamilleService;
 import fr.fava.gestionnaire.domain.famille.dto.CreateFamilleRequestDTO;
-import fr.fava.gestionnaire.domain.referentiel.CommuneDTO;
+import fr.fava.gestionnaire.domain.model.Commune;
 import fr.fava.gestionnaire.domain.referentiel.CommuneService;
 import java.io.Serializable;
 import java.util.List;
@@ -21,7 +21,7 @@ public class AjouterFamilleBean implements Serializable {
 
     private CreateFamilleRequestDTO form;
 
-    private List<CommuneDTO> communes;
+    private List<Commune> communes;
 
     @Inject
     private FamilleService familleService;
@@ -39,11 +39,11 @@ public class AjouterFamilleBean implements Serializable {
         return "/famille/details.xhtml?id=" + familleId + "&faces-redirect=true";
     }
 
-    public List<CommuneDTO> completeCommune(String query) {
+    public List<Commune> completeCommune(String query) {
         if (query == null || query.isEmpty()) {
             return communes;
         } else {
-            return communes.stream().filter((CommuneDTO t) -> {
+            return communes.stream().filter((Commune t) -> {
                 return t.getVille().toLowerCase().trim().contains(query.toLowerCase().trim());
             }).collect(Collectors.toList());
         }
@@ -57,11 +57,11 @@ public class AjouterFamilleBean implements Serializable {
         this.form = form;
     }
 
-    public List<CommuneDTO> getCommunes() {
+    public List<Commune> getCommunes() {
         return communes;
     }
 
-    public void setCommunes(List<CommuneDTO> communes) {
+    public void setCommunes(List<Commune> communes) {
         this.communes = communes;
     }
 

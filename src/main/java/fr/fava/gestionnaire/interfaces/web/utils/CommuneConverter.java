@@ -1,6 +1,6 @@
 package fr.fava.gestionnaire.interfaces.web.utils;
 
-import fr.fava.gestionnaire.domain.referentiel.CommuneDTO;
+import fr.fava.gestionnaire.domain.model.Commune;
 import fr.fava.gestionnaire.domain.referentiel.CommuneService;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
@@ -24,7 +24,7 @@ public class CommuneConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-            return communeService.retrieve(value);
+        return communeService.retrieve(value);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class CommuneConverter implements Converter {
         if (value == null) {
             return null;
         }
-        return ((CommuneDTO) value).getCode();
+        return ((Commune) value).getCode();
     }
 
 }

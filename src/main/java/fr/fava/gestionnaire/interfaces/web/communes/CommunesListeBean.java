@@ -1,6 +1,6 @@
 package fr.fava.gestionnaire.interfaces.web.communes;
 
-import fr.fava.gestionnaire.domain.referentiel.CommuneDTO;
+import fr.fava.gestionnaire.domain.model.Commune;
 import fr.fava.gestionnaire.domain.referentiel.CommuneService;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
@@ -26,13 +26,13 @@ public class CommunesListeBean implements Serializable {
     @Inject
     private CommuneService communeService;
 
-    private CommuneDTO form;
+    private Commune form;
 
     /**
      * Initialisation du bean par la vue.
      */
     public void init() {
-        form = new CommuneDTO();
+        form = new Commune();
         lazyModel = new LazyCommuneDataModel(communeService.retrieve());
     }
 
@@ -62,11 +62,11 @@ public class CommunesListeBean implements Serializable {
         this.communeService = communeService;
     }
 
-    public CommuneDTO getForm() {
+    public Commune getForm() {
         return form;
     }
 
-    public void setForm(CommuneDTO form) {
+    public void setForm(Commune form) {
         this.form = form;
     }
 

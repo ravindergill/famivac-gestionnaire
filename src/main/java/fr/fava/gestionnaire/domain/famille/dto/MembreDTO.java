@@ -1,6 +1,7 @@
 package fr.fava.gestionnaire.domain.famille.dto;
 
-import fr.fava.gestionnaire.domain.referentiel.CommuneDTO;
+import fr.fava.gestionnaire.domain.model.Commune;
+import fr.fava.gestionnaire.utils.Email;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,14 +26,21 @@ public class MembreDTO {
 
     private boolean referent;
 
-    private CommuneDTO communeDeNaissance;
+    private Commune communeDeNaissance;
 
     private String profession;
 
     private String lienDeParente;
 
+    private String tel1;
+
+    private String tel2;
+
+    @Email
+    private String email;
+
     public MembreDTO() {
-        communeDeNaissance = new CommuneDTO();
+        communeDeNaissance = new Commune();
     }
 
     public Long getId() {
@@ -91,11 +99,11 @@ public class MembreDTO {
         this.referent = referent;
     }
 
-    public CommuneDTO getCommuneDeNaissance() {
+    public Commune getCommuneDeNaissance() {
         return communeDeNaissance;
     }
 
-    public void setCommuneDeNaissance(CommuneDTO communeDeNaissance) {
+    public void setCommuneDeNaissance(Commune communeDeNaissance) {
         this.communeDeNaissance = communeDeNaissance;
     }
 
@@ -113,6 +121,30 @@ public class MembreDTO {
 
     public void setLienDeParente(String lienDeParente) {
         this.lienDeParente = lienDeParente;
+    }
+
+    public String getTel1() {
+        return tel1;
+    }
+
+    public void setTel1(String tel1) {
+        this.tel1 = tel1;
+    }
+
+    public String getTel2() {
+        return tel2;
+    }
+
+    public void setTel2(String tel2) {
+        this.tel2 = tel2;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }
