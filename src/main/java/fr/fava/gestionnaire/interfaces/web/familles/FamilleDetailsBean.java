@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -135,6 +137,11 @@ public class FamilleDetailsBean implements Serializable {
     public void ajouterChambre() {
         familleService.addChambre(id, nouvelleChambre);
         init();
+    }
+
+    public int getNombreTotalLits() {
+        int nbLits = 0;
+        return chambres.stream().map((c) -> c.getNombreLits()).reduce(nbLits, Integer::sum);
     }
 
     public Long getId() {
