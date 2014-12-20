@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 public class EntityManagerProducer {
 
     @Produces
-    @PersistenceContext(name = "fava-metier-pu")
+    @PersistenceContext(name = "vef-metier-pu")
     private EntityManager entityManager;
 
 }
