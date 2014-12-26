@@ -1,56 +1,65 @@
 package fr.fava.gestionnaire.domain.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  * @author paoesco
  */
 @Entity
-@Table(name = "GROUPE")
 @NamedQueries({
     @NamedQuery(name = Groupe.QUERY_LISTE_ALL, query = "select g from Groupe g")
 })
 public class Groupe implements Serializable {
 
     public static final String QUERY_LISTE_ALL = "getGroupes";
+    
+    public static final String ROLE_GESTIONNAIRE = "ROLE_GESTIONNAIRE";
 
     @Id
-    @Column(name = "NOM", nullable = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Column(nullable = false)
     private String nom;
 
+    private String libelle;
+
     @OneToMany(mappedBy = "groupe")
-    private List<Utilisateur> utilisateurs;
+    private final Set<Utilisateur> utilisateurs;
 
     protected Groupe() {
-
+        utilisateurs = new HashSet<>();
     }
 
-    public Groupe(String nom) {
-        this.utilisateurs = new ArrayList<>();
+    public Groupe(String nom, String libelle) {
+        if (nom == null || nom.isEmpty()){
+            throw new IllegalArgumentException("Le nom est obligatoire");
+        }
+        this.utilisateurs = new HashSet<>();
         this.nom = nom;
+        this.libelle = libelle;
     }
 
     public String getNom() {
         return nom;
     }
 
-    public List<Utilisateur> getUtilisateurs() {
-        return utilisateurs;
+    public String getLibelle() {
+        return libelle;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
+
+    public Set<Utilisateur> getUtilisateurs() {
+        return Collections.unmodifiableSet(utilisateurs);
     }
 
 }

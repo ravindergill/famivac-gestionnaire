@@ -1,6 +1,6 @@
 package fr.fava.gestionnaire.domain.model;
 
-import fr.fava.gestionnaire.utils.Email;
+import fr.fava.gestionnaire.domain.utils.Email;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;

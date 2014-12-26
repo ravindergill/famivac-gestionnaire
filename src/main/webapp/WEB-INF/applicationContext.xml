@@ -14,7 +14,7 @@
     <http>
         <intercept-url pattern="/monitoring/**" access="ROLE_MONITORING" />
         <intercept-url pattern="/faces/parametres/**" access="ROLE_ADMIN" />
-        <intercept-url pattern="/faces/**" access="ROLE_USER" />
+        <intercept-url pattern="/faces/**" access="ROLE_GESTIONNAIRE" />
         <form-login 
             login-page='/login.html'
             default-target-url='/faces/index.xhtml'/>
@@ -24,8 +24,8 @@
         <authentication-provider>
             <user-service>
                 <user name="monitor" password="j'adorejavamelody" authorities="ROLE_MONITORING" />
-                <user name="admin" password="admin123" authorities="ROLE_USER, ROLE_ADMIN" />
-                <user name="user" password="user123" authorities="ROLE_USER" />
+                <user name="admin" password="admin123" authorities="ROLE_GESTIONNAIRE, ROLE_ADMIN" />
+                <user name="user" password="user123" authorities="ROLE_GESTIONNAIRE" />
             </user-service>
         </authentication-provider>
     </authentication-manager>

@@ -20,8 +20,7 @@ public class Adresse implements Serializable {
     @Column(nullable = false)
     private String ligneAdresseDeux;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
+    @ManyToOne(optional = false)
     private Commune commune;
 
     public Adresse() {
