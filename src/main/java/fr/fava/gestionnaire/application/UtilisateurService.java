@@ -33,8 +33,8 @@ public class UtilisateurService {
         return password;
     }
 
-    public Utilisateur retrieve(String email) {
-        Utilisateur entity = entityManager.find(Utilisateur.class, email);
+    public Utilisateur retrieve(String login) {
+        Utilisateur entity = entityManager.find(Utilisateur.class, login);
         return entity;
     }
 

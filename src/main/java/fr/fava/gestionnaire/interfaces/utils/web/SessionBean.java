@@ -1,0 +1,44 @@
+package fr.fava.gestionnaire.interfaces.utils.web;
+
+import fr.fava.gestionnaire.application.UtilisateurService;
+import fr.fava.gestionnaire.domain.model.Utilisateur;
+import java.io.Serializable;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+
+/**
+ *
+ * @author paoesco
+ */
+@Named
+@SessionScoped
+public class SessionBean implements Serializable {
+
+    @Inject
+    private UtilisateurService utilisateurService;
+
+    private Utilisateur connectedUser;
+
+    @PostConstruct
+    public void init() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Utilisateur entity = utilisateurService.retrieve(user.getUsername());
+        if (entity == null) {
+            connectedUser = Utilisateur.fakeUtilisateur;
+            connectedUser.setNom("(non registered)");
+            connectedUser.setPrenom(user.getUsername());
+        } else {
+            connectedUser = entity;
+        }
+
+    }
+
+    public Utilisateur getConnectedUser() {
+        return connectedUser;
+    }
+
+}

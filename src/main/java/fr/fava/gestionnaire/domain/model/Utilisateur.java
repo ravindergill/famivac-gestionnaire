@@ -20,6 +20,8 @@ public class Utilisateur implements Serializable {
 
     public static final String QUERY_LISTE_ALL = "retrieveUtilisateurs";
 
+    public static final Utilisateur fakeUtilisateur = new Utilisateur();
+
     @Id
     private String login;
 
@@ -39,6 +41,8 @@ public class Utilisateur implements Serializable {
     @ManyToOne(optional = false)
     private Groupe groupe;
 
+    private boolean enabled;
+
     protected Utilisateur() {
     }
 
@@ -55,6 +59,7 @@ public class Utilisateur implements Serializable {
         this.groupe = groupe;
         this.nom = nom;
         this.prenom = prenom;
+        this.enabled = true;
     }
 
     public String getLogin() {
