@@ -29,7 +29,7 @@ public class SessionBean implements Serializable {
         Utilisateur entity = utilisateurService.retrieve(user.getUsername());
         if (entity == null) {
             connectedUser = Utilisateur.fakeUtilisateur;
-            connectedUser.setNom("(non registered)");
+            connectedUser.setNom("(system)");
             connectedUser.setPrenom(user.getUsername());
         } else {
             connectedUser = entity;

@@ -106,4 +106,12 @@ public class Utilisateur implements Serializable {
         this.groupe = groupe;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
 }

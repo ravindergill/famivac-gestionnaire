@@ -24,21 +24,21 @@ import javax.inject.Named;
 @Named
 @ViewScoped
 public class UtilisateursBean implements Serializable {
-
+    
     private AjouterUtilisateurDTO form;
 
     /**
      * Liste des utilistaeurs.
      */
     private LazyUtilisateurDataModel lazyModel;
-
+    
     @Inject
     private UtilisateurService utilisateurService;
     @Inject
     private UtilisateurServiceFacade utilisateurServiceFacade;
     @Inject
     private GroupeService groupeService;
-
+    
     private List<Groupe> groupes;
 
     /**
@@ -51,7 +51,7 @@ public class UtilisateursBean implements Serializable {
         Groupe groupeGestionnaire = groupes.stream().filter(g -> Groupe.ROLE_GESTIONNAIRE.equals(g.getNom())).findFirst().get();
         form.setGroupe(groupeGestionnaire);
     }
-
+    
     public List<Groupe> completeGroupe(String query) {
         if (query == null || query.isEmpty()) {
             return groupes;
@@ -62,7 +62,7 @@ public class UtilisateursBean implements Serializable {
                         g -> g.getLibelle().toLowerCase().trim().contains(query.toLowerCase().trim())
                 ).collect(Collectors.toList());
     }
-
+    
     public void ajouter() {
         String password = utilisateurServiceFacade.create(form);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "L'utilisateur a été ajouté", null);
@@ -71,38 +71,48 @@ public class UtilisateursBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, displayPass);
         init();
     }
-
+    
     public void supprimer(RetrieveUtilisateursDTO user) {
         utilisateurService.delete(user.getLogin());
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "L'utilisateur a été supprimé", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
         init();
     }
-
+    
     public void reinitialiserMotDePasse(RetrieveUtilisateursDTO user) {
         String password = utilisateurServiceFacade.reinitPassword(user.getLogin(), user.getEmail());
         FacesMessage displayPass = new FacesMessage(FacesMessage.SEVERITY_INFO, MessageFormat.format("Le mot de passe a été réinitialisé : {0}", password), null);
         FacesContext.getCurrentInstance().addMessage(null, displayPass);
     }
-
+    
+    public void bloquer(RetrieveUtilisateursDTO user) {
+        utilisateurService.lock(user.getLogin());
+        user.setEnabled(false);
+    }
+    
+    public void debloquer(RetrieveUtilisateursDTO user) {
+        utilisateurService.unlock(user.getLogin());
+        user.setEnabled(true);
+    }
+    
     public LazyUtilisateurDataModel getLazyModel() {
         return lazyModel;
     }
-
+    
     public AjouterUtilisateurDTO getForm() {
         return form;
     }
-
+    
     public void setForm(AjouterUtilisateurDTO form) {
         this.form = form;
     }
-
+    
     public List<Groupe> getGroupes() {
         return groupes;
     }
-
+    
     public void setGroupes(List<Groupe> groupes) {
         this.groupes = groupes;
     }
-
+    
 }

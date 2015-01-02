@@ -15,6 +15,8 @@ public class RetrieveUtilisateursDTO {
 
     private String email;
 
+    private boolean enabled;
+
     public String getNom() {
         return nom;
     }
@@ -53,6 +55,14 @@ public class RetrieveUtilisateursDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

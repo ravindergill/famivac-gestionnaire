@@ -51,13 +51,32 @@
                                 </p:column>
 
                                 <p:column width="150">
-                                    <p:button 
-                                        outcome="/parametres/utilisateur/details.xhtml"
-                                        styleClass="btn-default" 
-                                        icon="ui-icon-pencil">
-                                        <f:param name="login" value="#{bean.login}"></f:param>
-                                    </p:button>
+                                    <!--                                    <p:button 
+                                                                            outcome="/parametres/utilisateur/details.xhtml"
+                                                                            styleClass="btn-default" 
+                                                                            icon="ui-icon-pencil">
+                                                                            <f:param name="login" value="#{bean.login}"></f:param>
+                                                                        </p:button>-->
                                     <h:form styleClass="pull-right">
+                                        <p:commandButton 
+                                            styleClass="btn-default"
+                                            icon="ui-icon-unlocked"
+                                            update=":datatable"
+                                            process="@this"
+                                            actionListener="#{utilisateursBean.bloquer(bean)}"
+                                            rendered="#{bean.enabled}"/>
+                                        <p:commandButton 
+                                            styleClass="btn-default"
+                                            icon="ui-icon-locked"
+                                            update=":datatable"
+                                            process="@this"
+                                            actionListener="#{utilisateursBean.debloquer(bean)}"
+                                            rendered="#{not bean.enabled}"/>
+                                        <p:commandButton 
+                                            styleClass="btn-default"
+                                            icon="ui-icon-arrowrefresh-1-e"
+                                            actionListener="#{utilisateursBean.reinitialiserMotDePasse(bean)}"
+                                            update=":password_displayer"/>
                                         <p:commandButton 
                                             styleClass="btn-default"
                                             icon="ui-icon-trash"
@@ -80,11 +99,6 @@
                                                 styleClass="ui-confirmdialog-no pull-right" 
                                                 icon="ui-icon-close" />
                                         </p:confirmDialog>
-                                        <p:commandButton 
-                                            value="R"
-                                            styleClass="btn-default"
-                                            actionListener="#{utilisateursBean.reinitialiserMotDePasse(bean)}"
-                                            update=":password_displayer"/>
                                     </h:form>
                                 </p:column>
 

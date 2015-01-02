@@ -16,10 +16,10 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class UtilisateurService {
-
+    
     @Inject
     private EntityManager entityManager;
-
+    
     public String create(AjouterUtilisateurDTO dto) {
         String password = generatePassword();
         Utilisateur entity = new Utilisateur(
@@ -32,12 +32,12 @@ public class UtilisateurService {
         entityManager.persist(entity);
         return password;
     }
-
+    
     public Utilisateur retrieve(String login) {
         Utilisateur entity = entityManager.find(Utilisateur.class, login);
         return entity;
     }
-
+    
     public List<RetrieveUtilisateursDTO> retrieve() {
         List<Utilisateur> entities = entityManager.createNamedQuery(Utilisateur.QUERY_LISTE_ALL).getResultList();
         return entities.stream().map(entity -> {
@@ -47,19 +47,20 @@ public class UtilisateurService {
             dto.setPrenom(entity.getPrenom());
             dto.setGroupe(entity.getGroupe().getLibelle());
             dto.setEmail(entity.getEmail());
+            dto.setEnabled(entity.isEnabled());
             return dto;
         }).collect(Collectors.toList());
     }
-
+    
     public void update(Utilisateur entity) {
         entityManager.merge(entity);
     }
-
+    
     public void delete(String login) {
         Utilisateur bean = entityManager.find(Utilisateur.class, login);
         entityManager.remove(bean);
     }
-
+    
     public void changePassword(String login, String actualPassword, String newPassword) throws WrongPasswordException {
         Utilisateur entity = entityManager.find(Utilisateur.class, login);
         if (!actualPassword.equals(entity.getPassword())) {
@@ -67,7 +68,7 @@ public class UtilisateurService {
         }
         entity.setPassword(newPassword);
     }
-
+    
     public String reinitPassword(String login) {
         String password = generatePassword();
         Utilisateur entity = entityManager.find(Utilisateur.class, login);
@@ -75,9 +76,20 @@ public class UtilisateurService {
         // TODO PES : envoyer email
         return password;
     }
-
+    
     private String generatePassword() {
         return UUID.randomUUID().toString();
     }
-
+    
+    public void lock(String login) {
+        Utilisateur entity = entityManager.find(Utilisateur.class, login);
+        entity.setEnabled(false);
+        
+    }
+    
+    public void unlock(String login) {
+        Utilisateur entity = entityManager.find(Utilisateur.class, login);
+        entity.setEnabled(true);
+    }
+    
 }
