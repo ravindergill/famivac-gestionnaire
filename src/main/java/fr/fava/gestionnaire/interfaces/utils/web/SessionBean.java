@@ -31,6 +31,7 @@ public class SessionBean implements Serializable {
             connectedUser = Utilisateur.fakeUtilisateur;
             connectedUser.setNom("(system)");
             connectedUser.setPrenom(user.getUsername());
+            connectedUser.setEnabled(false);
         } else {
             connectedUser = entity;
         }
