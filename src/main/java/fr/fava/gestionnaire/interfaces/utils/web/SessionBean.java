@@ -37,7 +37,7 @@ public class SessionBean implements Serializable {
         }
 
     }
-
+    
     public Utilisateur getConnectedUser() {
         return connectedUser;
     }
