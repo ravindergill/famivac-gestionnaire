@@ -1,5 +1,6 @@
-package fr.fava.gestionnaire.domain.model;
+package fr.fava.gestionnaire.domain.model.famille;
 
+import fr.fava.gestionnaire.domain.model.Adresse;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Date;

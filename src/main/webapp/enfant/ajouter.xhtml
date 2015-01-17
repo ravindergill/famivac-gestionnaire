@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head></h:head>
+
+    <h:body>
+
+        <ui:composition template="/WEB-INF/template/layout.xhtml">
+
+            <ui:define name="title">Ajouter</ui:define>
+
+            <ui:define name="metadata">
+                <f:metadata>
+                    <f:viewAction action="#{ajouterEnfantBean.init()}"></f:viewAction>
+                </f:metadata>
+            </ui:define>
+
+            <ui:define name="content">
+
+                <div class="container">
+                    <div class="col-md-offset-2 col-md-8">
+                        <h:form>
+                            <p:accordionPanel activeIndex="0,1,2" multiple="true">
+                                <p:tab title="Enfant">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <p:outputLabel for="enfant_nom" value="Nom" /> 
+                                        <p:inputText
+                                            id="enfant_nom"
+                                            maxlength="255"
+                                            required="true"
+                                            value="#{ajouterEnfantBean.form.nom}"/>
+                                        <p:outputLabel for="enfant_prenom" value="Prénom" /> 
+                                        <p:inputText
+                                            id="enfant_prenom"
+                                            maxlength="255"
+                                            required="true"
+                                            value="#{ajouterEnfantBean.form.prenom}"/>
+                                        <p:outputLabel for="enfant_sexe" value="Sexe" />
+                                        <p:selectOneRadio 
+                                            id="enfant_sexe"
+                                            required="true"
+                                            value="#{ajouterEnfantBean.form.sexe}">
+                                            <f:selectItem itemLabel="F" itemValue="FEMME" />
+                                            <f:selectItem itemLabel="M" itemValue="HOMME" />
+                                        </p:selectOneRadio>
+                                        <p:outputLabel for="enfant_dateNaissance" value="Date de naissance" /> 
+                                        <p:calendar 
+                                            locale="fr"
+                                            pattern="dd/MM/yyyy"
+                                            mask="99/99/9999"
+                                            id="enfant_dateNaissance" 
+                                            required="true"
+                                            value="#{ajouterEnfantBean.form.dateNaissance}"/>
+                                        <p:outputLabel for="enfant_classe" value="Classe actuellement fréquentée" /> 
+                                        <p:inputText
+                                            id="enfant_classe"
+                                            maxlength="255"
+                                            required="true"
+                                            value="#{ajouterEnfantBean.form.classeFrequentee}"/>
+                                        <p:outputLabel for="enfant_enuresie" value="Enfant énurétique ?" />
+                                        <p:selectOneRadio 
+                                            id="enfant_enuresie"
+                                            value="#{ajouterEnfantBean.form.enuretique}">
+                                            <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
+                                            <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
+                                        </p:selectOneRadio>
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="Inscripteur">
+                                    <p:outputPanel id="panel_enfant">
+                                        <h:panelGrid columns="2" cellpadding="10">
+                                            <p:outputLabel for="inscripteur_type" value="Type" /> 
+                                            <p:selectOneRadio 
+                                                id="inscripteur_type"
+                                                required="true"
+                                                value="#{ajouterEnfantBean.form.inscripteur.type}">
+                                                <f:selectItem itemLabel="Particulier" itemValue="PARTICULIER" />
+                                                <f:selectItem itemLabel="Service Social" itemValue="SERVICE_SOCIAL" />
+                                                <f:selectItem itemLabel="Maison d'enfants ou autre Collectivité" itemValue="AUTRE" />
+                                                <p:ajax event="change" update="panel_enfant"></p:ajax>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel 
+                                                for="inscripteur_nom" 
+                                                value="Nom"
+                                                rendered="#{ajouterEnfantBean.typeInscripteurParticulier}"/> 
+                                            <p:inputText
+                                                id="inscripteur_nom"
+                                                maxlength="255"
+                                                required="true"
+                                                value="#{ajouterEnfantBean.form.inscripteur.nom}"
+                                                rendered="#{ajouterEnfantBean.typeInscripteurParticulier}"/>
+                                            <p:outputLabel 
+                                                for="inscripteur_prenom" 
+                                                value="Prénom"
+                                                rendered="#{ajouterEnfantBean.typeInscripteurParticulier}"/> 
+                                            <p:inputText
+                                                id="inscripteur_prenom"
+                                                maxlength="255"
+                                                required="true"
+                                                value="#{ajouterEnfantBean.form.inscripteur.personneReferente}"
+                                                rendered="#{ajouterEnfantBean.typeInscripteurParticulier}"/>
+                                            <p:outputLabel 
+                                                for="inscripteur_organisme" 
+                                                value="Organisme"
+                                                rendered="#{ajouterEnfantBean.typeServiceSocialOuAutre}"/> 
+                                            <p:inputText
+                                                id="inscripteur_organisme"
+                                                maxlength="255"
+                                                required="true"
+                                                value="#{ajouterEnfantBean.form.inscripteur.nom}"
+                                                rendered="#{ajouterEnfantBean.typeServiceSocialOuAutre}"/>
+                                            <p:outputLabel for="inscripteur_la1" value="Ligne adresse 1" />
+                                            <p:inputText 
+                                                id="inscripteur_la1" 
+                                                required="true"
+                                                value="#{ajouterEnfantBean.form.inscripteur.adresse.ligneAdresseUne}"
+                                                maxlength="255"/>
+                                            <p:outputLabel for="inscripteur_la2" value="Ligne adresse 2" />
+                                            <p:inputText 
+                                                id="inscripteur_la2" 
+                                                required="true"
+                                                value="#{ajouterEnfantBean.form.inscripteur.adresse.ligneAdresseDeux}"
+                                                maxlength="255"/>
+                                            <p:outputLabel for="inscripteur_commune" value="Commune" />
+                                            <p:autoComplete
+                                                id="inscripteur_commune"
+                                                required="true"
+                                                dropdown="true"
+                                                converter="#{communeConverter}"
+                                                cache="true"
+                                                forceSelection="true"
+                                                var="commune"
+                                                value="#{ajouterEnfantBean.form.inscripteur.adresse.commune}"
+                                                completeMethod="#{ajouterEnfantBean.completeCommune}"
+                                                itemLabel="#{commune.label}"
+                                                itemValue="#{commune}">
+                                            </p:autoComplete>
+                                            <p:outputLabel for="inscripteur_referent" value="Personne référente" />
+                                            <p:inputText 
+                                                id="inscripteur_referent" 
+                                                required="true"
+                                                value="#{ajouterEnfantBean.form.inscripteur.personneReferente}"
+                                                maxlength="255"/>
+                                            <p:outputLabel for="inscripteur_tel" value="Téléphone" /> 
+                                            <p:inputText
+                                                id="inscripteur_tel"
+                                                maxlength="255"
+                                                value="#{ajouterEnfantBean.form.inscripteur.telephone}"
+                                                required="true"/>
+                                            <p:outputLabel for="inscripteur_fax" value="Fax" /> 
+                                            <p:inputText
+                                                id="inscripteur_fax"
+                                                maxlength="255"
+                                                value="#{ajouterEnfantBean.form.inscripteur.fax}"
+                                                required="true"/>
+                                            <p:outputLabel for="inscripteur_email" value="Email" /> 
+                                            <p:inputText
+                                                id="inscripteur_email"
+                                                maxlength="255"
+                                                value="#{ajouterEnfantBean.form.inscripteur.email}"
+                                                required="true"/>
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </p:tab>
+                                <p:tab title="Responsable légal">
+                                    <p:outputPanel id="panel_responsable">
+                                        <h:panelGrid columns="2" cellpadding="10">
+                                            <p:outputLabel for="responsable_inscripteur" value="L'inscripteur est-il le responsable légal ?" /> 
+                                            <p:selectOneRadio
+                                                id="responsable_inscripteur"
+                                                value="#{ajouterEnfantBean.form.inscripteur.responsableLegal}">
+                                                <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
+                                                <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
+                                                <p:ajax event="change" update="panel_responsable"></p:ajax>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel for="responsable_nom" value="Nom" /> 
+                                            <p:inputText
+                                                id="responsable_nom"
+                                                maxlength="255"
+                                                required="true"
+                                                value="#{ajouterEnfantBean.form.responsableLegal.nom}"
+                                                disabled="#{ajouterEnfantBean.inscripteurEstResponsableLegal}"/>
+                                            <p:outputLabel for="responsable_prenom" value="Prénom" /> 
+                                            <p:inputText
+                                                id="responsable_prenom"
+                                                maxlength="255"
+                                                required="true"
+                                                value="#{ajouterEnfantBean.form.responsableLegal.prenom}"
+                                                disabled="#{ajouterEnfantBean.inscripteurEstResponsableLegal}"/>
+                                            <p:outputLabel for="responsable_la1" value="Ligne adresse 1" />
+                                            <p:inputText 
+                                                id="responsable_la1" 
+                                                required="true"
+                                                maxlength="255"
+                                                value="#{ajouterEnfantBean.form.responsableLegal.adresse.ligneAdresseUne}"
+                                                disabled="#{ajouterEnfantBean.inscripteurEstResponsableLegal}"/>
+                                            <p:outputLabel for="responsable_la2" value="Ligne adresse 2" />
+                                            <p:inputText 
+                                                id="responsable_la2" 
+                                                required="true"
+                                                maxlength="255"
+                                                value="#{ajouterEnfantBean.form.responsableLegal.adresse.ligneAdresseDeux}"
+                                                disabled="#{ajouterEnfantBean.inscripteurEstResponsableLegal}"/>
+                                            <p:outputLabel for="responsable_commune" value="Commune" />
+                                            <p:autoComplete
+                                                id="responsable_commune"
+                                                required="true"
+                                                dropdown="true"
+                                                value="#{ajouterEnfantBean.form.responsableLegal.adresse.commune}"
+                                                converter="#{communeConverter}"
+                                                cache="true"
+                                                forceSelection="true"
+                                                var="commune"
+                                                completeMethod="#{ajouterEnfantBean.completeCommune}"
+                                                itemLabel="#{commune.label}"
+                                                itemValue="#{commune}"
+                                                disabled="#{ajouterEnfantBean.inscripteurEstResponsableLegal}">
+                                            </p:autoComplete>
+                                            <p:outputLabel for="responsable_lienParente" value="Lien de parenté" />
+                                            <p:inputText 
+                                                id="responsable_lienParente" 
+                                                maxlength="255"
+                                                value="#{ajouterEnfantBean.form.responsableLegal.lienDeParente}"
+                                                disabled="#{ajouterEnfantBean.inscripteurEstResponsableLegal}"/>
+                                            <p:outputLabel for="responsable_tel" value="Téléphone" /> 
+                                            <p:inputText
+                                                id="responsable_tel"
+                                                maxlength="255"
+                                                value="#{ajouterEnfantBean.form.responsableLegal.telephone}"
+                                                disabled="#{ajouterEnfantBean.inscripteurEstResponsableLegal}"/>
+                                            <p:outputLabel for="responsable_email" value="Email" /> 
+                                            <p:inputText
+                                                id="responsable_email"
+                                                maxlength="255"
+                                                value="#{ajouterEnfantBean.form.responsableLegal.email}"
+                                                disabled="#{ajouterEnfantBean.inscripteurEstResponsableLegal}"/>
+                                            <!--                                            <p:outputLabel for="responsable_nourriceASE" value="Enfant placé chez une nourrice A.S.E." />
+                                                                                        <p:selectOneRadio 
+                                                                                            id="responsable_nourriceASE" 
+                                                                                            disabled="#{ajouterEnfantBean.inscripteurEstResponsableLegal}">
+                                                                                            <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
+                                                                                            <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
+                                                                                        </p:selectOneRadio>-->
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </p:tab>
+                                <p:tab title="Payeur">
+                                    <p:outputPanel id="panel_payeur">
+                                        <h:panelGrid columns="2" cellpadding="10">
+                                            <p:outputLabel for="payeur_nom" value="Nom" /> 
+                                            <p:inputText
+                                                id="payeur_nom"
+                                                maxlength="255"
+                                                value="#{ajouterEnfantBean.form.payeur.nom}"
+                                                required="true"/>
+                                            <p:outputLabel for="payeur_prenom" value="Prénom" /> 
+                                            <p:inputText
+                                                id="payeur_prenom"
+                                                maxlength="255"
+                                                value="#{ajouterEnfantBean.form.payeur.prenom}"
+                                                required="true"/>
+                                            <p:outputLabel for="payeur_la1" value="Ligne adresse 1" />
+                                            <p:inputText 
+                                                id="payeur_la1" 
+                                                required="true"
+                                                value="#{ajouterEnfantBean.form.payeur.adresse.ligneAdresseUne}"
+                                                maxlength="255"/>
+                                            <p:outputLabel for="payeur_la2" value="Ligne adresse 2" />
+                                            <p:inputText 
+                                                id="payeur_la2" 
+                                                required="true"
+                                                value="#{ajouterEnfantBean.form.payeur.adresse.ligneAdresseDeux}"
+                                                maxlength="255"/>
+                                            <p:outputLabel for="payeur_commune" value="Commune" />
+                                            <p:autoComplete
+                                                id="payeur_commune"
+                                                required="true"
+                                                dropdown="true"
+                                                value="#{ajouterEnfantBean.form.payeur.adresse.commune}"
+                                                converter="#{communeConverter}"
+                                                cache="true"
+                                                forceSelection="true"
+                                                var="commune"
+                                                completeMethod="#{ajouterEnfantBean.completeCommune}"
+                                                itemLabel="#{commune.label}"
+                                                itemValue="#{commune}">
+                                            </p:autoComplete>
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </p:tab>
+                            </p:accordionPanel>
+                            <p:commandButton
+                                styleClass="btn-primary pull-right" 
+                                value="Ajouter"
+                                icon="ui-icon-plus"
+                                ajax="false"
+                                action="#{ajouterEnfantBean.ajouter()}"/>
+                        </h:form>
+                    </div>
+                </div> <!-- .container -->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

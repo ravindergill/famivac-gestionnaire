@@ -44,7 +44,7 @@ public class AjouterFamilleBean implements Serializable {
             return communes;
         } else {
             return communes.stream().filter((Commune t) -> {
-                return t.getVille().toLowerCase().trim().contains(query.toLowerCase().trim());
+                return t.getLabel().toLowerCase().trim().contains(query.toLowerCase().trim());
             }).collect(Collectors.toList());
         }
     }

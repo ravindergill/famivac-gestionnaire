@@ -50,4 +50,11 @@ public class Commune implements Serializable {
         this.ville = ville;
     }
 
+    public String getLabel() {
+        if (code == null) {
+            return "";
+        }
+        return ville + " (" + code + ")";
+    }
+
 }

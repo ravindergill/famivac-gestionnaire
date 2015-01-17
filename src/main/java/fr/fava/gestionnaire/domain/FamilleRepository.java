@@ -1,6 +1,6 @@
-package fr.fava.gestionnaire.domain.famille;
+package fr.fava.gestionnaire.domain;
 
-import fr.fava.gestionnaire.domain.model.Famille;
+import fr.fava.gestionnaire.domain.model.famille.Famille;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

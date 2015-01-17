@@ -2,7 +2,7 @@ package fr.fava.gestionnaire.application;
 
 import fr.fava.gestionnaire.application.dto.MembreDTO;
 import fr.fava.gestionnaire.domain.model.Commune;
-import fr.fava.gestionnaire.domain.model.MembreFamille;
+import fr.fava.gestionnaire.domain.model.famille.MembreFamille;
 import fr.fava.gestionnaire.domain.model.Sexe;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;

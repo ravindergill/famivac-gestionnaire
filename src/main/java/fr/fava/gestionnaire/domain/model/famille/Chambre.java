@@ -1,4 +1,4 @@
-package fr.fava.gestionnaire.domain.model;
+package fr.fava.gestionnaire.domain.model.famille;
 
 import java.io.Serializable;
 import javax.persistence.Entity;

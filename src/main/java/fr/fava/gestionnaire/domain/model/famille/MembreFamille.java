@@ -1,5 +1,7 @@
-package fr.fava.gestionnaire.domain.model;
+package fr.fava.gestionnaire.domain.model.famille;
 
+import fr.fava.gestionnaire.domain.model.Commune;
+import fr.fava.gestionnaire.domain.model.Sexe;
 import fr.fava.gestionnaire.domain.utils.Email;
 import java.io.Serializable;
 import java.util.Date;

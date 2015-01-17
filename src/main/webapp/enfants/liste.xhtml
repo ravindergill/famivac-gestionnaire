@@ -13,9 +13,9 @@
         <ui:composition template="/WEB-INF/template/layout.xhtml">
 
             <ui:define name="metadata">
-                <f:metadata>
+<!--                <f:metadata>
                     <f:viewAction action="#{enfantsListeBean.init()}"></f:viewAction>
-                </f:metadata>
+                </f:metadata>-->
             </ui:define>
 
             <ui:define name="title">Enfants</ui:define>
@@ -49,7 +49,14 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">Enfants</div>
                             <div class="panel-body">
-                                <p:dataTable 
+                                <p:button 
+                                    outcome="/enfant/ajouter.xhtml"
+                                    styleClass="btn-default" 
+                                    value="Ajouter"
+                                    icon="ui-icon-plus"/>
+                                <br/>
+                                <br/>
+<!--                                <p:dataTable 
                                     var="bean" 
                                     value="#{enfantsListeBean.lazyModel}"
                                     paginator="true"
@@ -75,7 +82,7 @@
                                         <p:button styleClass="btn-default" icon="ui-icon-trash"/>
                                     </p:column>
 
-                                </p:dataTable>
+                                </p:dataTable>-->
 
                             </div>
                         </div>
