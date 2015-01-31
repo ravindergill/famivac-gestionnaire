@@ -1,4 +1,4 @@
-package fr.fava.gestionnaire.application.dto;
+package fr.fava.gestionnaire.application.famille;
 
 import fr.fava.gestionnaire.domain.model.Commune;
 import fr.fava.gestionnaire.domain.utils.Email;

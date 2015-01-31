@@ -52,7 +52,7 @@ public class Inscripteur implements Serializable {
     public Inscripteur() {
         enfants = new HashSet<>();
         adresse = new Adresse();
-        type = TypeInscripteur.PARTICULIER;
+        type = TypeInscripteur.SERVICE_SOCIAL;
     }
 
     public Long getId() {

@@ -1,7 +1,7 @@
 package fr.fava.gestionnaire.interfaces.familles.web;
 
-import fr.fava.gestionnaire.application.FamilleService;
-import fr.fava.gestionnaire.application.dto.CreateFamilleRequestDTO;
+import fr.fava.gestionnaire.application.famille.FamilleService;
+import fr.fava.gestionnaire.application.famille.CreateFamilleRequestDTO;
 import fr.fava.gestionnaire.domain.model.Commune;
 import fr.fava.gestionnaire.application.CommuneService;
 import java.io.Serializable;

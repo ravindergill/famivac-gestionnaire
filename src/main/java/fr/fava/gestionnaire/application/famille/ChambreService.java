@@ -1,7 +1,6 @@
-package fr.fava.gestionnaire.application;
+package fr.fava.gestionnaire.application.famille;
 
 import fr.fava.gestionnaire.domain.model.famille.Chambre;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

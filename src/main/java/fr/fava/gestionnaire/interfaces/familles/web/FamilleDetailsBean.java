@@ -1,9 +1,9 @@
 package fr.fava.gestionnaire.interfaces.familles.web;
 
-import fr.fava.gestionnaire.application.ChambreService;
-import fr.fava.gestionnaire.application.FamilleService;
-import fr.fava.gestionnaire.application.MembreService;
-import fr.fava.gestionnaire.application.dto.MembreDTO;
+import fr.fava.gestionnaire.application.famille.ChambreService;
+import fr.fava.gestionnaire.application.famille.FamilleService;
+import fr.fava.gestionnaire.application.famille.MembreService;
+import fr.fava.gestionnaire.application.famille.MembreDTO;
 import fr.fava.gestionnaire.domain.model.famille.Chambre;
 import fr.fava.gestionnaire.domain.model.Commune;
 import fr.fava.gestionnaire.domain.model.famille.Famille;

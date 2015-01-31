@@ -4,6 +4,7 @@ import fr.fava.gestionnaire.domain.model.Sexe;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -39,18 +40,16 @@ public class Enfant implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Inscripteur inscripteur;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private ResponsableLegal responsableLegal;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private Payeur payeur;
-
-    private boolean enuretique;
+    @Embedded
+    private final InformationsComplementairesEnfant informationsComplementairesEnfant;
 
     public Enfant() {
         inscripteur = new Inscripteur();
         responsableLegal = new ResponsableLegal();
-        payeur = new Payeur();
+        informationsComplementairesEnfant = new InformationsComplementairesEnfant();
     }
 
     public Long getId() {
@@ -113,20 +112,8 @@ public class Enfant implements Serializable {
         this.responsableLegal = responsableLegal;
     }
 
-    public Payeur getPayeur() {
-        return payeur;
-    }
-
-    public void setPayeur(Payeur payeur) {
-        this.payeur = payeur;
-    }
-
-    public boolean isEnuretique() {
-        return enuretique;
-    }
-
-    public void setEnuretique(boolean enuretique) {
-        this.enuretique = enuretique;
+    public InformationsComplementairesEnfant getInformationsComplementairesEnfant() {
+        return informationsComplementairesEnfant;
     }
 
 }

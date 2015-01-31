@@ -1,8 +1,5 @@
-package fr.fava.gestionnaire.application;
+package fr.fava.gestionnaire.application.famille;
 
-import fr.fava.gestionnaire.application.dto.MembreDTO;
-import fr.fava.gestionnaire.application.dto.CreateFamilleRequestDTO;
-import fr.fava.gestionnaire.application.dto.RetrieveFamillesResponseDTO;
 import fr.fava.gestionnaire.domain.FamilleRepository;
 import fr.fava.gestionnaire.domain.model.Adresse;
 import fr.fava.gestionnaire.domain.model.famille.Chambre;
@@ -76,6 +73,9 @@ public class FamilleService {
 
     public void delete(@PathParam("id") long id) {
         Famille famille = entityManager.find(Famille.class, id);
+        if (famille == null) {
+            throw new IllegalArgumentException("La famille n'existe pas");
+        }
         entityManager.remove(famille);
     }
 

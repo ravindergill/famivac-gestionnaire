@@ -1,6 +1,6 @@
-package fr.fava.gestionnaire.application;
+package fr.fava.gestionnaire.application.famille;
 
-import fr.fava.gestionnaire.application.dto.MembreDTO;
+import fr.fava.gestionnaire.application.famille.MembreDTO;
 import fr.fava.gestionnaire.domain.model.Commune;
 import fr.fava.gestionnaire.domain.model.famille.MembreFamille;
 import fr.fava.gestionnaire.domain.model.Sexe;

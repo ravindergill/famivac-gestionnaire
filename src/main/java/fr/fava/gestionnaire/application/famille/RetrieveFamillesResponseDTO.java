@@ -1,4 +1,4 @@
-package fr.fava.gestionnaire.application.dto;
+package fr.fava.gestionnaire.application.famille;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

@@ -44,12 +44,30 @@ public class ResponsableLegal implements Serializable {
 
     private String fax;
 
+    private boolean familleASE;
+
     @Email
     private String email;
 
     public ResponsableLegal() {
         enfants = new HashSet<>();
         adresse = new Adresse();
+    }
+
+    public ResponsableLegal(Inscripteur inscripteur) {
+        this();
+        if (!inscripteur.isResponsableLegal()) {
+            throw new IllegalArgumentException("L'inscripteur doit être le responsable légal");
+        }
+        enfants = inscripteur.getEnfants();
+        type = inscripteur.getType();
+        nom = inscripteur.getNom();
+        prenom = inscripteur.getPrenom();
+        adresse = inscripteur.getAdresse();
+        telephone = inscripteur.getTelephone();
+        fax = inscripteur.getFax();
+        email = inscripteur.getEmail();
+
     }
 
     public Long getId() {
@@ -130,6 +148,14 @@ public class ResponsableLegal implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isFamilleASE() {
+        return familleASE;
+    }
+
+    public void setFamilleASE(boolean familleASE) {
+        this.familleASE = familleASE;
     }
 
 }

@@ -25,7 +25,7 @@
                 <div class="container">
                     <div class="col-md-offset-2 col-md-8">
                         <h:form>
-                            <p:accordionPanel activeIndex="0,1,2" multiple="true">
+                            <p:accordionPanel activeIndex="0,1,2,3" multiple="true">
                                 <p:tab title="Enfant">
                                     <h:panelGrid columns="2" cellpadding="10">
                                         <p:outputLabel for="enfant_nom" value="Nom" /> 
@@ -53,7 +53,9 @@
                                             locale="fr"
                                             pattern="dd/MM/yyyy"
                                             mask="99/99/9999"
-                                            id="enfant_dateNaissance" 
+                                            id="enfant_dateNaissance"
+                                            navigator="true"
+                                            yearRange="c-100:c+0"
                                             required="true"
                                             value="#{ajouterEnfantBean.form.dateNaissance}"/>
                                         <p:outputLabel for="enfant_classe" value="Classe actuellement fréquentée" /> 
@@ -62,13 +64,6 @@
                                             maxlength="255"
                                             required="true"
                                             value="#{ajouterEnfantBean.form.classeFrequentee}"/>
-                                        <p:outputLabel for="enfant_enuresie" value="Enfant énurétique ?" />
-                                        <p:selectOneRadio 
-                                            id="enfant_enuresie"
-                                            value="#{ajouterEnfantBean.form.enuretique}">
-                                            <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
-                                            <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
-                                        </p:selectOneRadio>
                                     </h:panelGrid>
                                 </p:tab>
                                 <p:tab title="Inscripteur">
@@ -84,6 +79,8 @@
                                                 <f:selectItem itemLabel="Maison d'enfants ou autre Collectivité" itemValue="AUTRE" />
                                                 <p:ajax event="change" update="panel_enfant"></p:ajax>
                                             </p:selectOneRadio>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2" cellpadding="10">
                                             <p:outputLabel 
                                                 for="inscripteur_nom" 
                                                 value="Nom"
@@ -239,60 +236,49 @@
                                                 maxlength="255"
                                                 value="#{ajouterEnfantBean.form.responsableLegal.email}"
                                                 disabled="#{ajouterEnfantBean.inscripteurEstResponsableLegal}"/>
-                                            <!--                                            <p:outputLabel for="responsable_nourriceASE" value="Enfant placé chez une nourrice A.S.E." />
-                                                                                        <p:selectOneRadio 
-                                                                                            id="responsable_nourriceASE" 
-                                                                                            disabled="#{ajouterEnfantBean.inscripteurEstResponsableLegal}">
-                                                                                            <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
-                                                                                            <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
-                                                                                        </p:selectOneRadio>-->
+                                            <p:outputLabel for="responsable_familleASE" value="Enfant placé chez une famille A.S.E." />
+                                            <p:selectOneRadio 
+                                                id="responsable_familleASE" 
+                                                disabled="#{ajouterEnfantBean.form.responsableLegal.familleASE}">
+                                                <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
+                                                <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
+                                            </p:selectOneRadio>
                                         </h:panelGrid>
                                     </p:outputPanel>
                                 </p:tab>
-                                <p:tab title="Payeur">
-                                    <p:outputPanel id="panel_payeur">
+                                <p:tab title="Informations complémentaires">
+                                    <p:outputPanel id="panel_informations_complementaires">
                                         <h:panelGrid columns="2" cellpadding="10">
-                                            <p:outputLabel for="payeur_nom" value="Nom" /> 
+                                            <p:outputLabel for="input_contact_urgence" value="Contact en cas d'urgence" /> 
                                             <p:inputText
-                                                id="payeur_nom"
+                                                id="input_contact_urgence"
                                                 maxlength="255"
-                                                value="#{ajouterEnfantBean.form.payeur.nom}"
+                                                value="#{ajouterEnfantBean.form.informationsComplementairesEnfant.contactUrgence}"
                                                 required="true"/>
-                                            <p:outputLabel for="payeur_prenom" value="Prénom" /> 
+                                            <p:outputLabel for="input_tel_urgence" value="Téléphone en cas d'urgence" /> 
                                             <p:inputText
-                                                id="payeur_prenom"
+                                                id="input_tel_urgence"
                                                 maxlength="255"
-                                                value="#{ajouterEnfantBean.form.payeur.prenom}"
+                                                value="#{ajouterEnfantBean.form.informationsComplementairesEnfant.telephoneUrgence}"
                                                 required="true"/>
-                                            <p:outputLabel for="payeur_la1" value="Ligne adresse 1" />
-                                            <p:inputText 
-                                                id="payeur_la1" 
-                                                required="true"
-                                                value="#{ajouterEnfantBean.form.payeur.adresse.ligneAdresseUne}"
-                                                maxlength="255"/>
-                                            <p:outputLabel for="payeur_la2" value="Ligne adresse 2" />
-                                            <p:inputText 
-                                                id="payeur_la2" 
-                                                required="true"
-                                                value="#{ajouterEnfantBean.form.payeur.adresse.ligneAdresseDeux}"
-                                                maxlength="255"/>
-                                            <p:outputLabel for="payeur_commune" value="Commune" />
-                                            <p:autoComplete
-                                                id="payeur_commune"
-                                                required="true"
-                                                dropdown="true"
-                                                value="#{ajouterEnfantBean.form.payeur.adresse.commune}"
-                                                converter="#{communeConverter}"
-                                                cache="true"
-                                                forceSelection="true"
-                                                var="commune"
-                                                completeMethod="#{ajouterEnfantBean.completeCommune}"
-                                                itemLabel="#{commune.label}"
-                                                itemValue="#{commune}">
-                                            </p:autoComplete>
+                                            <p:outputLabel for="input_attestation_cmu" value="Attestation C.M.U. ?" />
+                                            <p:selectOneRadio 
+                                                id="input_attestation_cmu" 
+                                                disabled="#{ajouterEnfantBean.form.informationsComplementairesEnfant.attestationCMU}">
+                                                <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
+                                                <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel for="input_carte_vitale" value="Carte vitale ?" />
+                                            <p:selectOneRadio 
+                                                id="input_carte_vitale" 
+                                                disabled="#{ajouterEnfantBean.form.informationsComplementairesEnfant.carteVitale}">
+                                                <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
+                                                <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
+                                            </p:selectOneRadio>
                                         </h:panelGrid>
                                     </p:outputPanel>
                                 </p:tab>
+
                             </p:accordionPanel>
                             <p:commandButton
                                 styleClass="btn-primary pull-right" 

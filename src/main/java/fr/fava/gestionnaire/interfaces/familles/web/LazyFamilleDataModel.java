@@ -1,6 +1,6 @@
 package fr.fava.gestionnaire.interfaces.familles.web;
 
-import fr.fava.gestionnaire.application.dto.RetrieveFamillesResponseDTO;
+import fr.fava.gestionnaire.application.famille.RetrieveFamillesResponseDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

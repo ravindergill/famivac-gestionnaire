@@ -1,6 +1,6 @@
 package fr.fava.gestionnaire.interfaces.familles.web;
 
-import fr.fava.gestionnaire.application.FamilleService;
+import fr.fava.gestionnaire.application.famille.FamilleService;
 import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
