@@ -34,6 +34,14 @@ public class EnfantService {
         return enfant.getId();
     }
 
+    public Enfant retrieve(long id) {
+        return entityManager.find(Enfant.class, id);
+    }
+
+    public void update(Enfant enfant) {
+        entityManager.merge(enfant);
+    }
+
     public List<RetrieveEnfantsDTO> retrieve(String nomEnfant, String prenomEnfant) {
         List<Enfant> entities = enfantRepository.retrieve(nomEnfant, prenomEnfant);
         return entities.stream().map((Enfant entity) -> {

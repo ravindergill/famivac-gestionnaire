@@ -37,10 +37,10 @@ public class Enfant implements Serializable {
 
     private String classeFrequentee;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Inscripteur inscripteur;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private ResponsableLegal responsableLegal;
 
     @Embedded

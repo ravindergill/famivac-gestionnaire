@@ -66,8 +66,40 @@
                                             value="#{ajouterEnfantBean.form.classeFrequentee}"/>
                                     </h:panelGrid>
                                 </p:tab>
+                                <p:tab title="Informations complémentaires">
+                                    <p:outputPanel id="panel_informations_complementaires">
+                                        <h:panelGrid columns="2" cellpadding="10">
+                                            <p:outputLabel for="input_contact_urgence" value="Contact en cas d'urgence" /> 
+                                            <p:inputText
+                                                id="input_contact_urgence"
+                                                maxlength="255"
+                                                value="#{ajouterEnfantBean.form.informationsComplementairesEnfant.contactUrgence}"
+                                                required="true"/>
+                                            <p:outputLabel for="input_tel_urgence" value="Téléphone en cas d'urgence" /> 
+                                            <p:inputText
+                                                id="input_tel_urgence"
+                                                maxlength="255"
+                                                value="#{ajouterEnfantBean.form.informationsComplementairesEnfant.telephoneUrgence}"
+                                                required="true"/>
+                                            <p:outputLabel for="input_attestation_cmu" value="Attestation C.M.U. ?" />
+                                            <p:selectOneRadio 
+                                                id="input_attestation_cmu" 
+                                                disabled="#{ajouterEnfantBean.form.informationsComplementairesEnfant.attestationCMU}">
+                                                <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
+                                                <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel for="input_carte_vitale" value="Carte vitale ?" />
+                                            <p:selectOneRadio 
+                                                id="input_carte_vitale" 
+                                                disabled="#{ajouterEnfantBean.form.informationsComplementairesEnfant.carteVitale}">
+                                                <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
+                                                <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
+                                            </p:selectOneRadio>
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </p:tab>
                                 <p:tab title="Inscripteur">
-                                    <p:outputPanel id="panel_enfant">
+                                    <p:outputPanel id="panel_inscripteur">
                                         <h:panelGrid columns="2" cellpadding="10">
                                             <p:outputLabel for="inscripteur_type" value="Type" /> 
                                             <p:selectOneRadio 
@@ -77,7 +109,7 @@
                                                 <f:selectItem itemLabel="Particulier" itemValue="PARTICULIER" />
                                                 <f:selectItem itemLabel="Service Social" itemValue="SERVICE_SOCIAL" />
                                                 <f:selectItem itemLabel="Maison d'enfants ou autre Collectivité" itemValue="AUTRE" />
-                                                <p:ajax event="change" update="panel_enfant"></p:ajax>
+                                                <p:ajax event="change" update="panel_inscripteur"></p:ajax>
                                             </p:selectOneRadio>
                                         </h:panelGrid>
                                         <h:panelGrid columns="2" cellpadding="10">
@@ -246,39 +278,6 @@
                                         </h:panelGrid>
                                     </p:outputPanel>
                                 </p:tab>
-                                <p:tab title="Informations complémentaires">
-                                    <p:outputPanel id="panel_informations_complementaires">
-                                        <h:panelGrid columns="2" cellpadding="10">
-                                            <p:outputLabel for="input_contact_urgence" value="Contact en cas d'urgence" /> 
-                                            <p:inputText
-                                                id="input_contact_urgence"
-                                                maxlength="255"
-                                                value="#{ajouterEnfantBean.form.informationsComplementairesEnfant.contactUrgence}"
-                                                required="true"/>
-                                            <p:outputLabel for="input_tel_urgence" value="Téléphone en cas d'urgence" /> 
-                                            <p:inputText
-                                                id="input_tel_urgence"
-                                                maxlength="255"
-                                                value="#{ajouterEnfantBean.form.informationsComplementairesEnfant.telephoneUrgence}"
-                                                required="true"/>
-                                            <p:outputLabel for="input_attestation_cmu" value="Attestation C.M.U. ?" />
-                                            <p:selectOneRadio 
-                                                id="input_attestation_cmu" 
-                                                disabled="#{ajouterEnfantBean.form.informationsComplementairesEnfant.attestationCMU}">
-                                                <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
-                                                <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
-                                            </p:selectOneRadio>
-                                            <p:outputLabel for="input_carte_vitale" value="Carte vitale ?" />
-                                            <p:selectOneRadio 
-                                                id="input_carte_vitale" 
-                                                disabled="#{ajouterEnfantBean.form.informationsComplementairesEnfant.carteVitale}">
-                                                <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
-                                                <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
-                                            </p:selectOneRadio>
-                                        </h:panelGrid>
-                                    </p:outputPanel>
-                                </p:tab>
-
                             </p:accordionPanel>
                             <p:commandButton
                                 styleClass="btn-primary pull-right" 

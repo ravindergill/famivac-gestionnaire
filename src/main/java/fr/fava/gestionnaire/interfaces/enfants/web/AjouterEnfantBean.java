@@ -59,6 +59,10 @@ public class AjouterEnfantBean implements Serializable {
                 || TypeInscripteur.AUTRE.equals(form.getInscripteur().getType());
     }
 
+    public boolean isInscripteurEstResponsableLegal() {
+        return form.getInscripteur().isResponsableLegal();
+    }
+
     public List<Commune> getCommunes() {
         return communes;
     }
@@ -69,14 +73,6 @@ public class AjouterEnfantBean implements Serializable {
 
     public CommuneService getCommuneService() {
         return communeService;
-    }
-
-    public void setCommuneService(CommuneService communeService) {
-        this.communeService = communeService;
-    }
-
-    public boolean isInscripteurEstResponsableLegal() {
-        return form.getInscripteur().isResponsableLegal();
     }
 
     public Enfant getForm() {

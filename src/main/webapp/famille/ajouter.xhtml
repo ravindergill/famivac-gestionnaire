@@ -101,6 +101,8 @@
                                         <div class="col-md-8">
                                             <p:calendar 
                                                 locale="fr"
+                                                navigator="true"
+                                                yearRange="c-100:c+0"
                                                 pattern="dd/MM/yyyy"
                                                 mask="99/99/9999"
                                                 id="form_date_naissance" 
@@ -210,7 +212,7 @@
                                                 forceSelection="true"
                                                 var="commune"
                                                 completeMethod="#{ajouterFamilleBean.completeCommune}"
-                                                itemLabel="#{commune.ville}"
+                                                itemLabel="#{commune.label}"
                                                 itemValue="#{commune}">
                                             </p:autoComplete>
                                         </div>

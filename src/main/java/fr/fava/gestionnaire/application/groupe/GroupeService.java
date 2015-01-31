@@ -2,8 +2,6 @@ package fr.fava.gestionnaire.application.groupe;
 
 import fr.fava.gestionnaire.domain.model.Groupe;
 import java.util.List;
-import java.util.stream.Collectors;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

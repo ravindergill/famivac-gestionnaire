@@ -5,16 +5,13 @@ import fr.fava.gestionnaire.application.famille.FamilleService;
 import fr.fava.gestionnaire.application.famille.MembreService;
 import fr.fava.gestionnaire.application.famille.MembreDTO;
 import fr.fava.gestionnaire.domain.model.famille.Chambre;
-import fr.fava.gestionnaire.domain.model.Commune;
 import fr.fava.gestionnaire.domain.model.famille.Famille;
 import fr.fava.gestionnaire.application.CommuneService;
+import fr.fava.gestionnaire.interfaces.utils.web.CompleteCommune;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BinaryOperator;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -26,15 +23,13 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class FamilleDetailsBean implements Serializable {
+public class FamilleDetailsBean implements Serializable, CompleteCommune {
 
     private Long id;
 
     private Famille form;
 
     private List<MembreDTO> membres;
-
-    private List<Commune> communes;
 
     private List<Chambre> chambres;
 
@@ -58,7 +53,6 @@ public class FamilleDetailsBean implements Serializable {
      */
     public void init() {
         form = familleService.retrieve(id);
-        communes = communeService.retrieve();
         ajouterMembreEnCours = false;
         activeIndex = 0;
         membres = new ArrayList<>();
@@ -81,16 +75,6 @@ public class FamilleDetailsBean implements Serializable {
     public void update() {
         familleService.update(form);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informations sur la famille sauvées", ""));
-    }
-
-    public List<Commune> completeCommune(String query) {
-        if (query == null || query.isEmpty()) {
-            return communes;
-        } else {
-            return communes.stream().filter((Commune t) -> {
-                return t.getVille().toLowerCase().trim().contains(query.toLowerCase().trim());
-            }).collect(Collectors.toList());
-        }
     }
 
     public void ajouterMembre() {
@@ -176,20 +160,9 @@ public class FamilleDetailsBean implements Serializable {
         this.membres = membres;
     }
 
-    public List<Commune> getCommunes() {
-        return communes;
-    }
-
-    public void setCommunes(List<Commune> communes) {
-        this.communes = communes;
-    }
-
+    @Override
     public CommuneService getCommuneService() {
         return communeService;
-    }
-
-    public void setCommuneService(CommuneService communeService) {
-        this.communeService = communeService;
     }
 
     public boolean isAjouterMembreEnCours() {

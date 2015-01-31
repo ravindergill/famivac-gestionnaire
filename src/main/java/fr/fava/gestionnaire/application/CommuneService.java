@@ -2,7 +2,6 @@ package fr.fava.gestionnaire.application;
 
 import fr.fava.gestionnaire.domain.model.Commune;
 import java.util.List;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

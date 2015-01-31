@@ -12,6 +12,7 @@
 
         <ui:composition>
             <h:form id="form_membres" styleClass="form-horizontal" role="form">
+                <p:focus for="@form" rendered="#{empty membre.id}"/>
                 <div class="col-md-4">
                     <h:outputText value="Nombre total de membres :"></h:outputText>
                     <span class="badge"><h:outputText value="#{familleDetailsBean.membres.size()}"></h:outputText></span>
@@ -90,6 +91,8 @@
                                 <p:calendar 
                                     locale="fr"
                                     pattern="dd/MM/yyyy"
+                                    navigator="true"
+                                    yearRange="c-100:c+0"
                                     id="form_date_naissance" 
                                     mask="99/99/9999"
                                     required="true"
@@ -138,7 +141,7 @@
                                     forceSelection="true"
                                     var="commune"
                                     completeMethod="#{familleDetailsBean.completeCommune}"
-                                    itemLabel="#{commune.ville} (#{commune.code})"
+                                    itemLabel="#{commune.label}"
                                     itemValue="#{commune}">
                                 </p:autoComplete>
                             </div>
