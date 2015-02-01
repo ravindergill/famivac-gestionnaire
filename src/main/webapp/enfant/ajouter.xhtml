@@ -84,14 +84,21 @@
                                             <p:outputLabel for="input_attestation_cmu" value="Attestation C.M.U. ?" />
                                             <p:selectOneRadio 
                                                 id="input_attestation_cmu" 
-                                                disabled="#{ajouterEnfantBean.form.informationsComplementairesEnfant.attestationCMU}">
+                                                value="#{ajouterEnfantBean.form.informationsComplementairesEnfant.attestationCMU}">
                                                 <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
                                                 <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
                                             </p:selectOneRadio>
                                             <p:outputLabel for="input_carte_vitale" value="Carte vitale ?" />
                                             <p:selectOneRadio 
                                                 id="input_carte_vitale" 
-                                                disabled="#{ajouterEnfantBean.form.informationsComplementairesEnfant.carteVitale}">
+                                                value="#{ajouterEnfantBean.form.informationsComplementairesEnfant.carteVitale}">
+                                                <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
+                                                <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel for="responsable_familleASE" value="Enfant placé chez une famille A.S.E." />
+                                            <p:selectOneRadio 
+                                                id="responsable_familleASE" 
+                                                value="#{ajouterEnfantBean.form.informationsComplementairesEnfant.familleASE}">
                                                 <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
                                                 <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
                                             </p:selectOneRadio>
@@ -179,20 +186,17 @@
                                             <p:inputText
                                                 id="inscripteur_tel"
                                                 maxlength="255"
-                                                value="#{ajouterEnfantBean.form.inscripteur.telephone}"
-                                                required="true"/>
+                                                value="#{ajouterEnfantBean.form.inscripteur.telephone}"/>
                                             <p:outputLabel for="inscripteur_fax" value="Fax" /> 
                                             <p:inputText
                                                 id="inscripteur_fax"
                                                 maxlength="255"
-                                                value="#{ajouterEnfantBean.form.inscripteur.fax}"
-                                                required="true"/>
+                                                value="#{ajouterEnfantBean.form.inscripteur.fax}"/>
                                             <p:outputLabel for="inscripteur_email" value="Email" /> 
                                             <p:inputText
                                                 id="inscripteur_email"
                                                 maxlength="255"
-                                                value="#{ajouterEnfantBean.form.inscripteur.email}"
-                                                required="true"/>
+                                                value="#{ajouterEnfantBean.form.inscripteur.email}"/>
                                         </h:panelGrid>
                                     </p:outputPanel>
                                 </p:tab>
@@ -268,13 +272,6 @@
                                                 maxlength="255"
                                                 value="#{ajouterEnfantBean.form.responsableLegal.email}"
                                                 disabled="#{ajouterEnfantBean.inscripteurEstResponsableLegal}"/>
-                                            <p:outputLabel for="responsable_familleASE" value="Enfant placé chez une famille A.S.E." />
-                                            <p:selectOneRadio 
-                                                id="responsable_familleASE" 
-                                                disabled="#{ajouterEnfantBean.form.responsableLegal.familleASE}">
-                                                <f:selectItem itemLabel="Oui" itemValue="true"></f:selectItem>
-                                                <f:selectItem itemLabel="Non" itemValue="false"></f:selectItem>
-                                            </p:selectOneRadio>
                                         </h:panelGrid>
                                     </p:outputPanel>
                                 </p:tab>

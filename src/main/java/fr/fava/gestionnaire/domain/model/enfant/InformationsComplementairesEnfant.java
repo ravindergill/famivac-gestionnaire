@@ -19,6 +19,8 @@ public class InformationsComplementairesEnfant implements Serializable {
 
     private boolean enuretique;
 
+    private boolean familleASE;
+
     public boolean isAttestationCMU() {
         return attestationCMU;
     }
@@ -57,6 +59,14 @@ public class InformationsComplementairesEnfant implements Serializable {
 
     public void setEnuretique(boolean enuretique) {
         this.enuretique = enuretique;
+    }
+
+    public boolean isFamilleASE() {
+        return familleASE;
+    }
+
+    public void setFamilleASE(boolean familleASE) {
+        this.familleASE = familleASE;
     }
 
 }

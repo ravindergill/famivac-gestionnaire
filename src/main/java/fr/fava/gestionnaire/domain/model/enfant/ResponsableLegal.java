@@ -44,8 +44,6 @@ public class ResponsableLegal implements Serializable {
 
     private String fax;
 
-    private boolean familleASE;
-
     @Email
     private String email;
 
@@ -150,12 +148,6 @@ public class ResponsableLegal implements Serializable {
         this.email = email;
     }
 
-    public boolean isFamilleASE() {
-        return familleASE;
-    }
-
-    public void setFamilleASE(boolean familleASE) {
-        this.familleASE = familleASE;
-    }
+   
 
 }
