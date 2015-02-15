@@ -34,17 +34,21 @@
                                 <h:form>
                                     <h:panelGrid columns="2">
                                         <p:outputLabel for="input_enfant_nom" value="Nom" /> 
-                                        <p:inputText
-                                            id="input_enfant_nom"
-                                            maxlength="255"
-                                            required="true"
-                                            value="#{enfantDetailsBean.form.nom}"/>
+                                        <p:inplace>
+                                            <p:inputText
+                                                id="input_enfant_nom"
+                                                maxlength="255"
+                                                required="true"
+                                                value="#{enfantDetailsBean.form.nom}"/>
+                                        </p:inplace>
                                         <p:outputLabel for="enfant_prenom" value="Prénom" /> 
-                                        <p:inputText
-                                            id="enfant_prenom"
-                                            maxlength="255"
-                                            required="true"
-                                            value="#{enfantDetailsBean.form.prenom}"/>
+                                        <p:inplace>
+                                            <p:inputText
+                                                id="enfant_prenom"
+                                                maxlength="255"
+                                                required="true"
+                                                value="#{enfantDetailsBean.form.prenom}"/>
+                                        </p:inplace>
                                         <p:outputLabel for="enfant_sexe" value="Sexe" />
                                         <p:selectOneRadio 
                                             id="enfant_sexe"
@@ -54,21 +58,27 @@
                                             <f:selectItem itemLabel="M" itemValue="HOMME" />
                                         </p:selectOneRadio>
                                         <p:outputLabel for="enfant_dateNaissance" value="Date de naissance" /> 
-                                        <p:calendar 
-                                            locale="fr"
-                                            pattern="dd/MM/yyyy"
-                                            mask="99/99/9999"
-                                            id="enfant_dateNaissance"
-                                            navigator="true"
-                                            yearRange="c-100:c+0"
-                                            required="true"
-                                            value="#{enfantDetailsBean.form.dateNaissance}"/>
+                                        <p:inplace>
+                                            <p:calendar 
+                                                locale="fr"
+                                                pattern="dd/MM/yyyy"
+                                                mask="99/99/9999"
+                                                id="enfant_dateNaissance"
+                                                navigator="true"
+                                                yearRange="c-100:c+0"
+                                                required="true"
+                                                value="#{enfantDetailsBean.form.dateNaissance}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </p:calendar>
+                                        </p:inplace>
                                         <p:outputLabel for="enfant_classe" value="Classe actuellement fréquentée" /> 
-                                        <p:inputText
-                                            id="enfant_classe"
-                                            maxlength="255"
-                                            required="true"
-                                            value="#{enfantDetailsBean.form.classeFrequentee}"/>
+                                        <p:inplace>
+                                            <p:inputText
+                                                id="enfant_classe"
+                                                maxlength="255"
+                                                required="true"
+                                                value="#{enfantDetailsBean.form.classeFrequentee}"/>
+                                        </p:inplace>
                                     </h:panelGrid>
                                     <p:commandButton
                                         styleClass="btn-default pull-right" 
@@ -106,82 +116,99 @@
                                                 for="inscripteur_nom" 
                                                 value="Nom"
                                                 rendered="#{enfantDetailsBean.typeInscripteurParticulier}"/> 
-                                            <p:inputText
-                                                id="inscripteur_nom"
-                                                maxlength="255"
-                                                required="true"
-                                                value="#{ajouterEnfantBean.form.inscripteur.nom}"
-                                                rendered="#{enfantDetailsBean.typeInscripteurParticulier}"/>
+                                            <p:inplace rendered="#{enfantDetailsBean.typeInscripteurParticulier}">
+                                                <p:inputText
+                                                    id="inscripteur_nom"
+                                                    maxlength="255"
+                                                    required="true"
+                                                    value="#{ajouterEnfantBean.form.inscripteur.nom}"/>
+                                            </p:inplace>
                                             <p:outputLabel 
                                                 for="inscripteur_prenom" 
                                                 value="Prénom"
                                                 rendered="#{enfantDetailsBean.typeInscripteurParticulier}"/> 
-                                            <p:inputText
-                                                id="inscripteur_prenom"
-                                                maxlength="255"
-                                                required="true"
-                                                value="#{enfantDetailsBean.form.inscripteur.personneReferente}"
-                                                rendered="#{enfantDetailsBean.typeInscripteurParticulier}"/>
+                                            <p:inplace rendered="#{enfantDetailsBean.typeInscripteurParticulier}">
+                                                <p:inputText
+                                                    id="inscripteur_prenom"
+                                                    maxlength="255"
+                                                    required="true"
+                                                    value="#{enfantDetailsBean.form.inscripteur.personneReferente}" />
+                                            </p:inplace>
                                             <p:outputLabel 
                                                 for="inscripteur_organisme" 
                                                 value="Organisme"
                                                 rendered="#{enfantDetailsBean.typeServiceSocialOuAutre}"/> 
-                                            <p:inputText
-                                                id="inscripteur_organisme"
-                                                maxlength="255"
-                                                required="true"
-                                                value="#{enfantDetailsBean.form.inscripteur.nom}"
-                                                rendered="#{enfantDetailsBean.typeServiceSocialOuAutre}"/>
+                                            <p:inplace rendered="#{enfantDetailsBean.typeServiceSocialOuAutre}">
+                                                <p:inputText
+                                                    id="inscripteur_organisme"
+                                                    maxlength="255"
+                                                    required="true"
+                                                    value="#{enfantDetailsBean.form.inscripteur.nom}"/>
+                                            </p:inplace>
                                             <p:outputLabel for="inscripteur_la1" value="Ligne adresse 1" />
-                                            <p:inputText 
-                                                id="inscripteur_la1" 
-                                                required="true"
-                                                value="#{enfantDetailsBean.form.inscripteur.adresse.ligneAdresseUne}"
-                                                maxlength="255"/>
+                                            <p:inplace>
+                                                <p:inputText 
+                                                    id="inscripteur_la1" 
+                                                    required="true"
+                                                    value="#{enfantDetailsBean.form.inscripteur.adresse.ligneAdresseUne}"
+                                                    maxlength="255"/>
+                                            </p:inplace>
                                             <p:outputLabel for="inscripteur_la2" value="Ligne adresse 2" />
-                                            <p:inputText 
-                                                id="inscripteur_la2" 
-                                                required="true"
-                                                value="#{enfantDetailsBean.form.inscripteur.adresse.ligneAdresseDeux}"
-                                                maxlength="255"/>
+                                            <p:inplace>
+                                                <p:inputText 
+                                                    id="inscripteur_la2" 
+                                                    required="true"
+                                                    value="#{enfantDetailsBean.form.inscripteur.adresse.ligneAdresseDeux}"
+                                                    maxlength="255"/>
+                                            </p:inplace>
                                             <p:outputLabel for="inscripteur_commune" value="Commune" />
-                                            <p:autoComplete
-                                                id="inscripteur_commune"
-                                                required="true"
-                                                dropdown="true"
-                                                converter="#{communeConverter}"
-                                                cache="true"
-                                                forceSelection="true"
-                                                var="commune"
-                                                value="#{enfantDetailsBean.form.inscripteur.adresse.commune}"
-                                                completeMethod="#{enfantDetailsBean.completeCommune}"
-                                                itemLabel="#{commune.label}"
-                                                itemValue="#{commune}">
-                                            </p:autoComplete>
+                                            <p:inplace label="#{enfantDetailsBean.form.inscripteur.adresse.commune.label}">
+                                                <p:autoComplete
+                                                    id="inscripteur_commune"
+                                                    required="true"
+                                                    dropdown="true"
+                                                    converter="#{communeConverter}"
+                                                    cache="true"
+                                                    forceSelection="true"
+                                                    var="commune"
+                                                    value="#{enfantDetailsBean.form.inscripteur.adresse.commune}"
+                                                    completeMethod="#{enfantDetailsBean.completeCommune}"
+                                                    itemLabel="#{commune.label}"
+                                                    itemValue="#{commune}">
+                                                </p:autoComplete>
+                                            </p:inplace>
                                             <p:outputLabel for="inscripteur_referent" value="Personne référente" />
-                                            <p:inputText 
-                                                id="inscripteur_referent" 
-                                                required="true"
-                                                value="#{enfantDetailsBean.form.inscripteur.personneReferente}"
-                                                maxlength="255"/>
+                                            <p:inplace>
+                                                <p:inputText 
+                                                    id="inscripteur_referent" 
+                                                    required="true"
+                                                    value="#{enfantDetailsBean.form.inscripteur.personneReferente}"
+                                                    maxlength="255"/>
+                                            </p:inplace>
                                             <p:outputLabel for="inscripteur_tel" value="Téléphone" /> 
-                                            <p:inputText
-                                                id="inscripteur_tel"
-                                                maxlength="255"
-                                                value="#{enfantDetailsBean.form.inscripteur.telephone}"
-                                                required="true"/>
+                                            <p:inplace>
+                                                <p:inputText
+                                                    id="inscripteur_tel"
+                                                    maxlength="255"
+                                                    value="#{enfantDetailsBean.form.inscripteur.telephone}"
+                                                    required="true"/>
+                                            </p:inplace>
                                             <p:outputLabel for="inscripteur_fax" value="Fax" /> 
-                                            <p:inputText
-                                                id="inscripteur_fax"
-                                                maxlength="255"
-                                                value="#{enfantDetailsBean.form.inscripteur.fax}"
-                                                required="true"/>
+                                            <p:inplace>
+                                                <p:inputText
+                                                    id="inscripteur_fax"
+                                                    maxlength="255"
+                                                    value="#{enfantDetailsBean.form.inscripteur.fax}"
+                                                    required="true"/>
+                                            </p:inplace>
                                             <p:outputLabel for="inscripteur_email" value="Email" /> 
-                                            <p:inputText
-                                                id="inscripteur_email"
-                                                maxlength="255"
-                                                value="#{enfantDetailsBean.form.inscripteur.email}"
-                                                required="true"/>
+                                            <p:inplace>
+                                                <p:inputText
+                                                    id="inscripteur_email"
+                                                    maxlength="255"
+                                                    value="#{enfantDetailsBean.form.inscripteur.email}"
+                                                    required="true"/>
+                                            </p:inplace>
                                         </h:panelGrid>
                                     </p:outputPanel>
                                     <p:commandButton
@@ -205,17 +232,21 @@
                                     <p:outputPanel id="panel_informations_complementaires">
                                         <h:panelGrid columns="2" cellpadding="10">
                                             <p:outputLabel for="input_contact_urgence" value="Contact en cas d'urgence" /> 
-                                            <p:inputText
-                                                id="input_contact_urgence"
-                                                maxlength="255"
-                                                value="#{enfantDetailsBean.form.informationsComplementairesEnfant.contactUrgence}"
-                                                required="true"/>
+                                            <p:inplace>
+                                                <p:inputText
+                                                    id="input_contact_urgence"
+                                                    maxlength="255"
+                                                    value="#{enfantDetailsBean.form.informationsComplementairesEnfant.contactUrgence}"
+                                                    required="true"/>
+                                            </p:inplace>
                                             <p:outputLabel for="input_tel_urgence" value="Téléphone en cas d'urgence" /> 
-                                            <p:inputText
-                                                id="input_tel_urgence"
-                                                maxlength="255"
-                                                value="#{enfantDetailsBean.form.informationsComplementairesEnfant.telephoneUrgence}"
-                                                required="true"/>
+                                            <p:inplace>
+                                                <p:inputText
+                                                    id="input_tel_urgence"
+                                                    maxlength="255"
+                                                    value="#{enfantDetailsBean.form.informationsComplementairesEnfant.telephoneUrgence}"
+                                                    required="true"/>
+                                            </p:inplace>
                                             <p:outputLabel for="input_attestation_cmu" value="Attestation C.M.U. ?" />
                                             <p:selectOneRadio 
                                                 id="input_attestation_cmu" 
@@ -268,66 +299,82 @@
                                                 <p:ajax event="change" update="panel_responsable"></p:ajax>
                                             </p:selectOneRadio>
                                             <p:outputLabel for="responsable_nom" value="Nom" /> 
-                                            <p:inputText
-                                                id="responsable_nom"
-                                                maxlength="255"
-                                                required="true"
-                                                value="#{enfantDetailsBean.form.responsableLegal.nom}"
-                                                disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            <p:inplace>
+                                                <p:inputText
+                                                    id="responsable_nom"
+                                                    maxlength="255"
+                                                    required="true"
+                                                    value="#{enfantDetailsBean.form.responsableLegal.nom}"
+                                                    disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            </p:inplace>
                                             <p:outputLabel for="responsable_prenom" value="Prénom" /> 
-                                            <p:inputText
-                                                id="responsable_prenom"
-                                                maxlength="255"
-                                                required="true"
-                                                value="#{enfantDetailsBean.form.responsableLegal.prenom}"
-                                                disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            <p:inplace>
+                                                <p:inputText
+                                                    id="responsable_prenom"
+                                                    maxlength="255"
+                                                    required="true"
+                                                    value="#{enfantDetailsBean.form.responsableLegal.prenom}"
+                                                    disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            </p:inplace>
                                             <p:outputLabel for="responsable_la1" value="Ligne adresse 1" />
-                                            <p:inputText 
-                                                id="responsable_la1" 
-                                                required="true"
-                                                maxlength="255"
-                                                value="#{enfantDetailsBean.form.responsableLegal.adresse.ligneAdresseUne}"
-                                                disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            <p:inplace>
+                                                <p:inputText 
+                                                    id="responsable_la1" 
+                                                    required="true"
+                                                    maxlength="255"
+                                                    value="#{enfantDetailsBean.form.responsableLegal.adresse.ligneAdresseUne}"
+                                                    disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            </p:inplace>
                                             <p:outputLabel for="responsable_la2" value="Ligne adresse 2" />
-                                            <p:inputText 
-                                                id="responsable_la2" 
-                                                required="true"
-                                                maxlength="255"
-                                                value="#{enfantDetailsBean.form.responsableLegal.adresse.ligneAdresseDeux}"
-                                                disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            <p:inplace>
+                                                <p:inputText 
+                                                    id="responsable_la2" 
+                                                    required="true"
+                                                    maxlength="255"
+                                                    value="#{enfantDetailsBean.form.responsableLegal.adresse.ligneAdresseDeux}"
+                                                    disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            </p:inplace>
                                             <p:outputLabel for="responsable_commune" value="Commune" />
-                                            <p:autoComplete
-                                                id="responsable_commune"
-                                                required="true"
-                                                dropdown="true"
-                                                value="#{enfantDetailsBean.form.responsableLegal.adresse.commune}"
-                                                converter="#{communeConverter}"
-                                                cache="true"
-                                                forceSelection="true"
-                                                var="commune"
-                                                completeMethod="#{enfantDetailsBean.completeCommune}"
-                                                itemLabel="#{commune.label}"
-                                                itemValue="#{commune}"
-                                                disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}">
-                                            </p:autoComplete>
+                                            <p:inplace label="#{enfantDetailsBean.form.responsableLegal.adresse.commune.label}">
+                                                <p:autoComplete
+                                                    id="responsable_commune"
+                                                    required="true"
+                                                    dropdown="true"
+                                                    value="#{enfantDetailsBean.form.responsableLegal.adresse.commune}"
+                                                    converter="#{communeConverter}"
+                                                    cache="true"
+                                                    forceSelection="true"
+                                                    var="commune"
+                                                    completeMethod="#{enfantDetailsBean.completeCommune}"
+                                                    itemLabel="#{commune.label}"
+                                                    itemValue="#{commune}"
+                                                    disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}">
+                                                </p:autoComplete>
+                                            </p:inplace>
                                             <p:outputLabel for="responsable_lienParente" value="Lien de parenté" />
-                                            <p:inputText 
-                                                id="responsable_lienParente" 
-                                                maxlength="255"
-                                                value="#{enfantDetailsBean.form.responsableLegal.lienDeParente}"
-                                                disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            <p:inplace>
+                                                <p:inputText 
+                                                    id="responsable_lienParente" 
+                                                    maxlength="255"
+                                                    value="#{enfantDetailsBean.form.responsableLegal.lienDeParente}"
+                                                    disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            </p:inplace>
                                             <p:outputLabel for="responsable_tel" value="Téléphone" /> 
-                                            <p:inputText
-                                                id="responsable_tel"
-                                                maxlength="255"
-                                                value="#{enfantDetailsBean.form.responsableLegal.telephone}"
-                                                disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            <p:inplace>
+                                                <p:inputText
+                                                    id="responsable_tel"
+                                                    maxlength="255"
+                                                    value="#{enfantDetailsBean.form.responsableLegal.telephone}"
+                                                    disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            </p:inplace>
                                             <p:outputLabel for="responsable_email" value="Email" /> 
-                                            <p:inputText
-                                                id="responsable_email"
-                                                maxlength="255"
-                                                value="#{enfantDetailsBean.form.responsableLegal.email}"
-                                                disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            <p:inplace>
+                                                <p:inputText
+                                                    id="responsable_email"
+                                                    maxlength="255"
+                                                    value="#{enfantDetailsBean.form.responsableLegal.email}"
+                                                    disabled="#{enfantDetailsBean.inscripteurEstResponsableLegal}"/>
+                                            </p:inplace>
                                         </h:panelGrid>
                                     </p:outputPanel>
                                     <p:commandButton
