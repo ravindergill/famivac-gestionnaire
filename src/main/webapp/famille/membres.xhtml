@@ -26,8 +26,9 @@
                             <h:outputText value="#{membre.prenom} #{membre.nom}"></h:outputText>
                         </p:column>
 
-                        <p:column headerText="Référent ?" width="250">
-                            <h:outputText value="#{membre.referent}"></h:outputText>
+                        <p:column headerText="Référent ?" width="200">
+                            <h:outputText value="Oui" rendered="#{membre.referent}"></h:outputText>
+                            <h:outputText value="Non" rendered="#{not membre.referent}"></h:outputText>
                         </p:column>
 
                         <p:column width="120">
