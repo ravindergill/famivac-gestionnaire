@@ -1,10 +1,8 @@
 package fr.fava.gestionnaire.application.famille;
 
-import fr.fava.gestionnaire.application.famille.MembreDTO;
 import fr.fava.gestionnaire.domain.model.Commune;
 import fr.fava.gestionnaire.domain.model.famille.MembreFamille;
 import fr.fava.gestionnaire.domain.model.Sexe;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

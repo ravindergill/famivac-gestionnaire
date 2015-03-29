@@ -3,13 +3,11 @@ package fr.fava.gestionnaire.application.famille;
 import fr.fava.gestionnaire.domain.model.Commune;
 import fr.fava.gestionnaire.domain.utils.Email;
 import java.util.Date;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author paoesco
  */
-@XmlRootElement
 public class MembreDTO {
 
     private Long id;

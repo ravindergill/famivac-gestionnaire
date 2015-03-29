@@ -63,6 +63,7 @@
                                             icon="ui-icon-unlocked"
                                             update=":datatable"
                                             process="@this"
+                                            title="Verrouiller"
                                             actionListener="#{utilisateursBean.bloquer(bean)}"
                                             rendered="#{bean.enabled}"/>
                                         <p:commandButton 
@@ -70,16 +71,19 @@
                                             icon="ui-icon-locked"
                                             update=":datatable"
                                             process="@this"
+                                            title="Déverouiller"
                                             actionListener="#{utilisateursBean.debloquer(bean)}"
                                             rendered="#{not bean.enabled}"/>
                                         <p:commandButton 
                                             styleClass="btn-default"
                                             icon="ui-icon-arrowrefresh-1-e"
+                                            title="Réinitialiser mot de passe"
                                             actionListener="#{utilisateursBean.reinitialiserMotDePasse(bean)}"
                                             update=":password_displayer"/>
                                         <p:commandButton 
                                             styleClass="btn-default"
                                             icon="ui-icon-trash"
+                                            title="Supprimer"
                                             actionListener="#{utilisateursBean.supprimer(bean)}"
                                             update=":datatable">
                                             <p:confirm 

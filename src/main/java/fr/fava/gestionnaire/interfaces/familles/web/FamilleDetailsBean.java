@@ -31,6 +31,10 @@ public class FamilleDetailsBean implements Serializable, CompleteCommune {
 
     private List<MembreDTO> membres;
 
+    private MembreDTO selectedMembre;
+
+    private MembreDTO membreForm;
+
     private List<Chambre> chambres;
 
     private Chambre nouvelleChambre;
@@ -44,18 +48,13 @@ public class FamilleDetailsBean implements Serializable, CompleteCommune {
     @Inject
     private ChambreService chambreService;
 
-    private boolean ajouterMembreEnCours;
-
-    private int activeIndex;
-
     /**
      * Initialisation du bean.
      */
     public void init() {
         form = familleService.retrieve(id);
-        ajouterMembreEnCours = false;
-        activeIndex = 0;
         membres = new ArrayList<>();
+        membreForm = new MembreDTO();
         form.getMembres().stream().map((dto) -> membreService.retrieve(dto.getId())).forEach((membre) -> {
             membres.add(membre);
         });
@@ -77,21 +76,24 @@ public class FamilleDetailsBean implements Serializable, CompleteCommune {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informations sur la famille sauvées", ""));
     }
 
-    public void ajouterMembre() {
-        MembreDTO nouveau = new MembreDTO();
-        membres.add(nouveau);
-        ajouterMembreEnCours = true;
-        activeIndex = membres.size() - 1;
+    public void initAjouterMembre() {
+        membreForm = new MembreDTO();
+        selectedMembre = null;
     }
 
-    public void updateMembre(MembreDTO membre) {
-        membreService.update(membre);
+    public void selectMembre() {
+        membreForm = selectedMembre;
+    }
+
+    public void updateMembre() {
+        membreService.update(membreForm);
         init();
+        membreForm = selectedMembre;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informations sur le membre sauvées", ""));
     }
 
-    public void ajouterMembre(MembreDTO membre) {
-        familleService.addMembre(id, membre);
+    public void ajouterMembre() {
+        familleService.addMembre(id, membreForm);
         init();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informations sur le membre sauvées", ""));
     }
@@ -106,11 +108,6 @@ public class FamilleDetailsBean implements Serializable, CompleteCommune {
         membreService.definirReferent(membre.getId());
         init();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, MessageFormat.format("{0} {1} est désormais le membre référent de la famille", membre.getPrenom(), membre.getNom()), ""));
-    }
-
-    public void annulerAjoutMembre(MembreDTO membre) {
-        membres.remove(membre);
-        ajouterMembreEnCours = false;
     }
 
     public void supprimerChambre(Chambre chambre) {
@@ -165,18 +162,6 @@ public class FamilleDetailsBean implements Serializable, CompleteCommune {
         return communeService;
     }
 
-    public boolean isAjouterMembreEnCours() {
-        return ajouterMembreEnCours;
-    }
-
-    public int getActiveIndex() {
-        return activeIndex;
-    }
-
-    public void setActiveIndex(int activeIndex) {
-        this.activeIndex = activeIndex;
-    }
-
     public List<Chambre> getChambres() {
         return chambres;
     }
@@ -191,6 +176,22 @@ public class FamilleDetailsBean implements Serializable, CompleteCommune {
 
     public void setNouvelleChambre(Chambre nouvelleChambre) {
         this.nouvelleChambre = nouvelleChambre;
+    }
+
+    public MembreDTO getSelectedMembre() {
+        return selectedMembre;
+    }
+
+    public void setSelectedMembre(MembreDTO selectedMembre) {
+        this.selectedMembre = selectedMembre;
+    }
+
+    public MembreDTO getMembreForm() {
+        return membreForm;
+    }
+
+    public void setMembreForm(MembreDTO membreForm) {
+        this.membreForm = membreForm;
     }
 
 }

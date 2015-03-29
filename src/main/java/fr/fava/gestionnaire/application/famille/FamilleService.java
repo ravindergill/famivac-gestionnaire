@@ -71,7 +71,7 @@ public class FamilleService {
         entityManager.merge(entity);
     }
 
-    public void delete(@PathParam("id") long id) {
+    public void delete(long id) {
         Famille famille = entityManager.find(Famille.class, id);
         if (famille == null) {
             throw new IllegalArgumentException("La famille n'existe pas");
@@ -79,8 +79,11 @@ public class FamilleService {
         entityManager.remove(famille);
     }
 
-    public Long addMembre(@PathParam("familleId") long familleId, MembreDTO request) {
+    public Long addMembre(long familleId, MembreDTO request) {
         Famille famille = entityManager.find(Famille.class, familleId);
+        if (famille == null) {
+            throw new IllegalArgumentException("La famille n'existe pas");
+        }
         Commune commune = new Commune(request.getCommuneDeNaissance().getCode(), request.getCommuneDeNaissance().getVille());
         MembreFamille membre = new MembreFamille(famille,
                 request.getNom(),
@@ -97,8 +100,11 @@ public class FamilleService {
     }
 
     public Chambre addChambre(@PathParam("familleId") long familleId, Chambre entity) {
-        entityManager.persist(entity);
         Famille famille = entityManager.find(Famille.class, familleId);
+        if (famille == null) {
+            throw new IllegalArgumentException("La famille n'existe pas");
+        }
+        entityManager.persist(entity);
         famille.ajouterChambre(entity);
         return entity;
     }

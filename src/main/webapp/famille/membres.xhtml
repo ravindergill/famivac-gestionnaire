@@ -11,254 +11,255 @@
     <h:body>
 
         <ui:composition>
-            <h:form id="form_membres" styleClass="form-horizontal" role="form">
-                <p:focus for="@form" rendered="#{empty membre.id}"/>
-                <div class="col-md-4">
-                    <h:outputText value="Nombre total de membres :"></h:outputText>
-                    <span class="badge"><h:outputText value="#{familleDetailsBean.membres.size()}"></h:outputText></span>
-                </div>
-                <br />
-                <p:tabView
-                    id="tabView_membres"
-                    widgetVar="tabView_membres"
-                    dynamic="true"
-                    value="#{familleDetailsBean.membres}"
-                    var="membre">
-                    <p:tab id="tab" title="#{empty membre.id ? 'Nouveau' : membre.prenom.concat(' ').concat(membre.nom)} #{membre.referent ? '(R)' : ''}">
-                        <div class="form-group">
-                            <p:outputLabel 
-                                for="form_nom"
-                                styleClass="col-sm-3 control-label"
-                                value="Nom" />
-                            <div class="col-md-8">
-                                <p:inputText 
-                                    styleClass="form-control" 
-                                    id="form_nom" 
-                                    required="true"
-                                    maxlength="255"
-                                    value="#{membre.nom}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <p:outputLabel 
-                                for="form_nom_naissance"
-                                styleClass="col-sm-3 control-label"
-                                value="Nom de naissance" />
-                            <div class="col-md-8">
-                                <p:inputText 
-                                    id="form_nom_naissance"
-                                    styleClass="form-control" 
-                                    maxlength="255"
-                                    value="#{membre.nomDeNaissance}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <p:outputLabel 
-                                for="form_prenom"
-                                styleClass="col-sm-3 control-label"
-                                value="Prénom" />
-                            <div class="col-md-8">
-                                <p:inputText 
-                                    id="form_prenom"
-                                    styleClass="form-control" 
-                                    required="true"
-                                    maxlength="255"
-                                    value="#{membre.prenom}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <p:outputLabel 
-                                for="form_sexe"
-                                styleClass="col-sm-3 control-label"
-                                value="Sexe" />
-                            <div class="col-md-8">
-                                <p:selectOneMenu 
-                                    id="form_sexe"
-                                    required="true"
-                                    value="#{membre.sexe}">
-                                    <f:selectItem itemLabel="" itemValue="" />
-                                    <f:selectItem itemLabel="Homme" itemValue="HOMME" />
-                                    <f:selectItem itemLabel="Femme" itemValue="FEMME" />
-                                </p:selectOneMenu>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <p:outputLabel 
-                                for="form_date_naissance" 
-                                styleClass="col-sm-3 control-label"
-                                value="Date de naissance" />
-                            <div class="col-md-8">
-                                <p:calendar 
-                                    locale="fr"
-                                    pattern="dd/MM/yyyy"
-                                    navigator="true"
-                                    yearRange="c-100:c+0"
-                                    id="form_date_naissance" 
-                                    mask="99/99/9999"
-                                    required="true"
-                                    value="#{membre.dateNaissance}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <p:outputLabel 
-                                for="form_profession"
-                                styleClass="col-sm-3 control-label"
-                                value="Profession" />
-                            <div class="col-md-8">
-                                <p:inputText 
-                                    id="form_profession"
-                                    styleClass="form-control" 
-                                    maxlength="255"
-                                    value="#{membre.profession}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <p:outputLabel 
-                                for="input_lien_parente"
-                                styleClass="col-sm-3 control-label"
-                                value="Lien de parenté" />
-                            <div class="col-md-8">
-                                <p:inputText 
-                                    id="input_lien_parente"
-                                    styleClass="form-control" 
-                                    maxlength="255"
-                                    value="#{membre.lienDeParente}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <p:outputLabel 
-                                for="form_commune_naissance" 
-                                styleClass="col-sm-3 control-label"
-                                value="Commune de naissance" />
-                            <div class="col-md-8">
-                                <p:autoComplete
-                                    id="form_commune_naissance"
-                                    required="true"
-                                    dropdown="true"
-                                    value="#{membre.communeDeNaissance}"
-                                    converter="#{communeConverter}"
-                                    cache="true"
-                                    forceSelection="true"
-                                    var="commune"
-                                    completeMethod="#{familleDetailsBean.completeCommune}"
-                                    itemLabel="#{commune.label}"
-                                    itemValue="#{commune}">
-                                </p:autoComplete>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <p:outputLabel 
-                                for="form_tel1"
-                                styleClass="col-sm-3 control-label"
-                                value="Téléphone 1" />
-                            <div class="col-md-4">
-                                <p:inputText 
-                                    id="form_tel1"
-                                    styleClass="form-control" 
-                                    maxlength="10"
-                                    value="#{membre.tel1}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <p:outputLabel 
-                                for="form_tel2"
-                                styleClass="col-sm-3 control-label"
-                                value="Téléphone 2" />
-                            <div class="col-md-4">
-                                <p:inputText 
-                                    id="form_tel2"
-                                    styleClass="form-control" 
-                                    maxlength="10"
-                                    value="#{membre.tel2}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <p:outputLabel 
-                                for="form_email"
-                                styleClass="col-sm-3 control-label"
-                                value="Email" />
-                            <div class="col-md-8">
-                                <p:inputText 
-                                    id="form_email"
-                                    styleClass="form-control" 
-                                    maxlength="255"
-                                    value="#{membre.email}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-11">
-                                <p:commandButton
-                                    update=":form_membres:tabView_membres :form:tabView_famille:panel_membre_referent"
-                                    rendered="#{not empty membre.id and not membre.referent}"
-                                    styleClass="btn-default" 
-                                    process="@this"
-                                    value="Définir comme référent"
-                                    icon="ui-icon-person"
-                                    actionListener="#{familleDetailsBean.definirReferent(membre)}"/>
-                                <p:commandButton
-                                    update=":form_membres :form:tabView_famille:panel_membre_referent"
-                                    rendered="#{not empty membre.id}"
-                                    styleClass="btn-default pull-right" 
-                                    value="Sauver"
-                                    process=":form_membres:tabView_membres:tab"
-                                    icon="ui-icon-circle-check"
-                                    actionListener="#{familleDetailsBean.updateMembre(membre)}"/>
-                                <p:commandButton
-                                    update=":form_membres"
-                                    rendered="#{empty membre.id}"
-                                    styleClass="btn-default pull-right" 
-                                    process=":form_membres:tabView_membres:tab"
-                                    value="Sauver"
-                                    icon="ui-icon-circle-check"
-                                    actionListener="#{familleDetailsBean.ajouterMembre(membre)}"/>
-                                <p:commandButton
-                                    update=":form_membres"
-                                    process="@this"
-                                    rendered="#{empty membre.id}"
-                                    styleClass="btn-default pull-right" 
-                                    value="Annuler"
-                                    actionListener="#{familleDetailsBean.annulerAjoutMembre(membre)}"/>
-                                <p:commandButton 
-                                    update=":form_membres"
-                                    rendered="#{not empty membre.id and not membre.referent}"
-                                    styleClass="btn-default pull-right"
-                                    icon="ui-icon-circle-minus"
-                                    process="@this"
-                                    actionListener="#{familleDetailsBean.retirerMembre(membre)}"
-                                    value="Retirer">
-                                    <p:confirm 
-                                        header="Confirmation" 
-                                        message="Êtes vous sûr de vouloir supprimer ce membre ?" 
-                                        icon="ui-icon-alert" />
-                                </p:commandButton>
-                                <p:confirmDialog global="true">
-                                    <p:commandButton 
-                                        value="Oui" 
-                                        type="button" 
-                                        styleClass="ui-confirmdialog-yes pull-right" 
-                                        icon="ui-icon-check" />
-                                    <p:commandButton 
-                                        value="Non" 
-                                        type="button" 
-                                        styleClass="ui-confirmdialog-no pull-right" 
-                                        icon="ui-icon-close" />
-                                </p:confirmDialog>
-                            </div>
-                        </div>
+            <h:form styleClass="form-horizontal" role="form">
+                <div class="form-group col-md-12">
+                    <p:dataTable
+                        id="datatable_chambre"
+                        value="#{familleDetailsBean.membres}"
+                        var="membre"
+                        selectionMode="single" 
+                        selection="#{familleDetailsBean.selectedMembre}" 
+                        rowKey="#{membre.id}">
+                        <p:ajax event="rowSelect" listener="#{familleDetailsBean.selectMembre()}" update="@form" />
 
-                    </p:tab>
-                </p:tabView>
-                <hr/>
-                <p:commandButton
-                    process="@this"
-                    update=":form_membres"
-                    styleClass="btn-default pull-right" 
-                    value="Ajouter membre"
-                    icon="ui-icon-plus"
-                    oncomplete="PF('tabView_membres').select(PF('tabView_membres').getLength() - 1)"
-                    disabled="#{familleDetailsBean.ajouterMembreEnCours}"
-                    actionListener="#{familleDetailsBean.ajouterMembre()}"/>
+                        <p:column headerText="Prénom Nom">
+                            <h:outputText value="#{membre.prenom} #{membre.nom}"></h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Référent ?" width="250">
+                            <h:outputText value="#{membre.referent}"></h:outputText>
+                        </p:column>
+
+                        <p:column width="120">
+                            <p:commandButton 
+                                styleClass="btn-default"
+                                icon="ui-icon-check"
+                                process="@this"
+                                title="Définir comme référent"
+                                disabled="#{membre.referent}"
+                                actionListener="#{familleDetailsBean.definirReferent(membre)}"
+                                update="@form :form:tabView_famille:panel_membre_referent" />
+                            <p:commandButton 
+                                styleClass="btn-default"
+                                icon="ui-icon-trash"
+                                process="@this"
+                                title="Supprimer"
+                                disabled="#{membre.referent}"
+                                actionListener="#{familleDetailsBean.retirerMembre(membre)}"
+                                update="@form">
+                                <p:confirm 
+                                    header="Confirmation" 
+                                    message="Êtes vous sûr de vouloir supprimer ce membre ?" 
+                                    icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true">
+                                <p:commandButton 
+                                    value="Oui" 
+                                    type="button" 
+                                    styleClass="ui-confirmdialog-yes pull-right" 
+                                    icon="ui-icon-check" />
+                                <p:commandButton 
+                                    value="Non" 
+                                    type="button" 
+                                    styleClass="ui-confirmdialog-no pull-right" 
+                                    icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton 
+                        styleClass="btn-default"
+                        icon="ui-icon-plus"
+                        process="@this"
+                        value="Nouveau membre"
+                        actionListener="#{familleDetailsBean.initAjouterMembre()}"
+                        update="@form" />
+                </div>
+                <div class="form-group col-md-12">
+                    <hr/>
+                </div>
+                <div class="form-group">
+                    <p:outputLabel 
+                        for="form_nom"
+                        styleClass="col-sm-3 control-label"
+                        value="Nom" />
+                    <div class="col-md-8">
+                        <p:inputText 
+                            styleClass="form-control" 
+                            id="form_nom" 
+                            required="true"
+                            maxlength="255"
+                            value="#{familleDetailsBean.membreForm.nom}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p:outputLabel 
+                        for="form_nom_naissance"
+                        styleClass="col-sm-3 control-label"
+                        value="Nom de naissance" />
+                    <div class="col-md-8">
+                        <p:inputText 
+                            id="form_nom_naissance"
+                            styleClass="form-control" 
+                            maxlength="255"
+                            value="#{familleDetailsBean.membreForm.nomDeNaissance}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p:outputLabel 
+                        for="form_prenom"
+                        styleClass="col-sm-3 control-label"
+                        value="Prénom" />
+                    <div class="col-md-8">
+                        <p:inputText 
+                            id="form_prenom"
+                            styleClass="form-control" 
+                            required="true"
+                            maxlength="255"
+                            value="#{familleDetailsBean.membreForm.prenom}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p:outputLabel 
+                        for="form_sexe"
+                        styleClass="col-sm-3 control-label"
+                        value="Sexe" />
+                    <div class="col-md-8">
+                        <p:selectOneMenu 
+                            id="form_sexe"
+                            required="true"
+                            value="#{familleDetailsBean.membreForm.sexe}">
+                            <f:selectItem itemLabel="" itemValue="" />
+                            <f:selectItem itemLabel="Homme" itemValue="HOMME" />
+                            <f:selectItem itemLabel="Femme" itemValue="FEMME" />
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p:outputLabel 
+                        for="form_date_naissance" 
+                        styleClass="col-sm-3 control-label"
+                        value="Date de naissance" />
+                    <div class="col-md-8">
+                        <p:calendar 
+                            locale="fr"
+                            pattern="dd/MM/yyyy"
+                            navigator="true"
+                            yearRange="c-100:c+0"
+                            id="form_date_naissance" 
+                            mask="99/99/9999"
+                            required="true"
+                            value="#{familleDetailsBean.membreForm.dateNaissance}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p:outputLabel 
+                        for="form_profession"
+                        styleClass="col-sm-3 control-label"
+                        value="Profession" />
+                    <div class="col-md-8">
+                        <p:inputText 
+                            id="form_profession"
+                            styleClass="form-control" 
+                            maxlength="255"
+                            value="#{familleDetailsBean.membreForm.profession}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p:outputLabel 
+                        for="input_lien_parente"
+                        styleClass="col-sm-3 control-label"
+                        value="Lien de parenté" />
+                    <div class="col-md-8">
+                        <p:inputText 
+                            id="input_lien_parente"
+                            styleClass="form-control" 
+                            maxlength="255"
+                            value="#{familleDetailsBean.membreForm.lienDeParente}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p:outputLabel 
+                        for="form_commune_naissance" 
+                        styleClass="col-sm-3 control-label"
+                        value="Commune de naissance" />
+                    <div class="col-md-8">
+                        <p:autoComplete
+                            id="form_commune_naissance"
+                            required="true"
+                            dropdown="true"
+                            value="#{familleDetailsBean.membreForm.communeDeNaissance}"
+                            converter="#{communeConverter}"
+                            cache="true"
+                            forceSelection="true"
+                            var="commune"
+                            completeMethod="#{familleDetailsBean.completeCommune}"
+                            itemLabel="#{commune.label}"
+                            itemValue="#{commune}">
+                        </p:autoComplete>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p:outputLabel 
+                        for="form_tel1"
+                        styleClass="col-sm-3 control-label"
+                        value="Téléphone 1" />
+                    <div class="col-md-4">
+                        <p:inputText 
+                            id="form_tel1"
+                            styleClass="form-control" 
+                            maxlength="10"
+                            value="#{familleDetailsBean.membreForm.tel1}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p:outputLabel 
+                        for="form_tel2"
+                        styleClass="col-sm-3 control-label"
+                        value="Téléphone 2" />
+                    <div class="col-md-4">
+                        <p:inputText 
+                            id="form_tel2"
+                            styleClass="form-control" 
+                            maxlength="10"
+                            value="#{familleDetailsBean.membreForm.tel2}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p:outputLabel 
+                        for="form_email"
+                        styleClass="col-sm-3 control-label"
+                        value="Email" />
+                    <div class="col-md-8">
+                        <p:inputText 
+                            id="form_email"
+                            styleClass="form-control" 
+                            maxlength="255"
+                            value="#{familleDetailsBean.membreForm.email}"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-11">
+                        <p:commandButton 
+                            styleClass="btn-default pull-right"
+                            icon="ui-icon-circle-check"
+                            value="Sauver"
+                            rendered="#{empty familleDetailsBean.membreForm.id}"
+                            actionListener="#{familleDetailsBean.ajouterMembre()}"
+                            update="@form" />
+                        <p:commandButton 
+                            styleClass="btn-default pull-right"
+                            icon="ui-icon-circle-check"
+                            value="Sauver"
+                            rendered="#{not empty familleDetailsBean.membreForm.id}"
+                            actionListener="#{familleDetailsBean.updateMembre()}"
+                            update="@form :form:tabView_famille:panel_membre_referent" />
+                    </div>
+                </div>
             </h:form>
+
         </ui:composition>
     </h:body>
 </html>
