@@ -78,7 +78,7 @@ public class UtilisateurService {
     }
     
     private String generatePassword() {
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString().substring(0, 8);
     }
     
     public void lock(String login) {

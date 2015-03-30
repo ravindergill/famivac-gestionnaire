@@ -92,14 +92,14 @@ public class UtilisateursBean implements Serializable {
     public void bloquer(RetrieveUtilisateursDTO user) {
         utilisateurService.lock(user.getLogin());
         user.setEnabled(false);
-        FacesMessage lockMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, MessageFormat.format("L'utilisateur {0} {1} a été verrouillé et ne pourra plus se connecter", user.getPrenom(), user.getNom()), null);
+        FacesMessage lockMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, MessageFormat.format("L''utilisateur {0} {1} a été verrouillé et ne pourra plus se connecter", user.getPrenom(), user.getNom()), null);
         FacesContext.getCurrentInstance().addMessage(null, lockMessage);
     }
 
     public void debloquer(RetrieveUtilisateursDTO user) {
         utilisateurService.unlock(user.getLogin());
         user.setEnabled(true);
-        FacesMessage unlockMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, MessageFormat.format("L'utilisateur {0} {1} a été déverrouillé et peut à nouveau se connecter", user.getPrenom(), user.getNom()), null);
+        FacesMessage unlockMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, MessageFormat.format("L''utilisateur {0} {1} a été déverrouillé et peut à nouveau se connecter", user.getPrenom(), user.getNom()), null);
         FacesContext.getCurrentInstance().addMessage(null, unlockMessage);
     }
 
