@@ -27,6 +27,7 @@
     
     <authentication-manager>
         <authentication-provider>
+            <password-encoder hash="bcrypt"></password-encoder>
             <jdbc-user-service 
                 data-source-ref="datasource"
                 users-by-username-query=
