@@ -2,6 +2,7 @@ package fr.fava.gestionnaire.application.dto;
 
 import fr.fava.gestionnaire.domain.model.Groupe;
 import fr.fava.gestionnaire.domain.utils.Email;
+import java.util.List;
 
 /**
  * @author paoesco
@@ -17,7 +18,7 @@ public class AjouterUtilisateurDTO {
 
     private String prenom;
 
-    private Groupe groupe;
+    private List<Groupe> groupes;
 
     public String getLogin() {
         return login;
@@ -51,12 +52,12 @@ public class AjouterUtilisateurDTO {
         this.prenom = prenom;
     }
 
-    public Groupe getGroupe() {
-        return groupe;
+    public List<Groupe> getGroupes() {
+        return groupes;
     }
 
-    public void setGroupe(Groupe groupe) {
-        this.groupe = groupe;
+    public void setGroupes(List<Groupe> groupes) {
+        this.groupes = groupes;
     }
 
 }

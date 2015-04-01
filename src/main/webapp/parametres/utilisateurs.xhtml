@@ -28,40 +28,54 @@
                             Utilisateurs
                         </div>
                         <div class="panel-body">
-                            <p:messages id="password_displayer" globalOnly="true"/>
-                            <p:dataTable 
-                                id="datatable"
-                                var="bean" 
-                                value="#{utilisateursBean.lazyModel}"
-                                paginator="true"
-                                rowKey="#{bean.id}"
-                                rows="20"
-                                lazy="true">
+                            <h:form id="form_datatable">
+                                <p:messages id="password_displayer" globalOnly="true"/>
+                                <p:dataTable 
+                                    id="datatable"
+                                    var="bean" 
+                                    value="#{utilisateursBean.lazyModel}"
+                                    paginator="true"
+                                    rowKey="#{bean.id}"
+                                    rows="20"
+                                    lazy="true"
+                                    editable="true" 
+                                    editMode="cell">
+                                    <p:ajax event="cellEdit" listener="#{utilisateursBean.onCellEdit}" />
 
-                                <p:column headerText="Prénom Nom">
-                                    <h:outputText value="#{bean.prenom} #{bean.nom}"></h:outputText>
-                                </p:column>
+                                    <p:column headerText="Prénom Nom">
+                                        <h:outputText value="#{bean.prenom} #{bean.nom}"></h:outputText>
+                                    </p:column>
 
-                                <p:column headerText="Login">
-                                    <h:outputText value="#{bean.login}"></h:outputText>
-                                </p:column>
+                                    <p:column headerText="Login">
+                                        <h:outputText value="#{bean.login}"></h:outputText>
+                                    </p:column>
 
-                                <p:column headerText="Groupe">
-                                    <h:outputText value="#{bean.groupe}"></h:outputText>
-                                </p:column>
+                                    <p:column headerText="Groupe">
+                                        <p:cellEditor>
 
-                                <p:column width="150">
-                                    <!--                                    <p:button 
-                                                                            outcome="/parametres/utilisateur/details.xhtml"
-                                                                            styleClass="btn-default" 
-                                                                            icon="ui-icon-pencil">
-                                                                            <f:param name="login" value="#{bean.login}"></f:param>
-                                                                        </p:button>-->
-                                    <h:form styleClass="pull-right">
+                                            <f:facet name="output"><h:outputText value="#{bean.groupesLabel}"></h:outputText></f:facet>
+                                            <f:facet name="input">
+                                                <p:autoComplete  
+                                                    id="form_groupe"
+                                                    dropdown="true"
+                                                    multiple="true"
+                                                    var="groupe"
+                                                    value="#{bean.groupes}" 
+                                                    completeMethod="#{utilisateursBean.completeGroupe}"
+                                                    converter="#{groupeConverter}"
+                                                    itemLabel="#{groupe.libelle}"
+                                                    itemValue="#{groupe}"
+                                                    required="true"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column width="150">
+
                                         <p:commandButton 
                                             styleClass="btn-default"
                                             icon="ui-icon-unlocked"
-                                            update=":datatable"
+                                            update="@form"
                                             process="@this"
                                             title="Verrouiller"
                                             actionListener="#{utilisateursBean.bloquer(bean)}"
@@ -69,7 +83,7 @@
                                         <p:commandButton 
                                             styleClass="btn-default"
                                             icon="ui-icon-locked"
-                                            update=":datatable"
+                                            update="@form"
                                             process="@this"
                                             title="Déverouiller"
                                             actionListener="#{utilisateursBean.debloquer(bean)}"
@@ -78,14 +92,16 @@
                                             styleClass="btn-default"
                                             icon="ui-icon-arrowrefresh-1-e"
                                             title="Réinitialiser mot de passe"
+                                            process="@this"
                                             actionListener="#{utilisateursBean.reinitialiserMotDePasse(bean)}"
-                                            update=":password_displayer"/>
+                                            update="@form"/>
                                         <p:commandButton 
                                             styleClass="btn-default"
                                             icon="ui-icon-trash"
                                             title="Supprimer"
+                                            process="@this"
                                             actionListener="#{utilisateursBean.supprimer(bean)}"
-                                            update=":datatable">
+                                            update="@form">
                                             <p:confirm 
                                                 header="Confirmation" 
                                                 message="Êtes vous sûr de vouloir supprimer cet utilisateur ?" 
@@ -103,10 +119,10 @@
                                                 styleClass="ui-confirmdialog-no pull-right" 
                                                 icon="ui-icon-close" />
                                         </p:confirmDialog>
-                                    </h:form>
-                                </p:column>
+                                    </p:column>
 
-                            </p:dataTable>
+                                </p:dataTable>
+                            </h:form>
                         </div>
                     </div>
                 </div>
@@ -158,8 +174,9 @@
                                         <p:autoComplete  
                                             id="form_groupe"
                                             dropdown="true"
+                                            multiple="true"
                                             var="groupe"
-                                            value="#{utilisateursBean.form.groupe}" 
+                                            value="#{utilisateursBean.form.groupes}" 
                                             completeMethod="#{utilisateursBean.completeGroupe}"
                                             converter="#{groupeConverter}"
                                             itemLabel="#{groupe.libelle}"
@@ -203,7 +220,7 @@
                                             styleClass="btn-primary pull-right" 
                                             value="Ajouter"
                                             icon="ui-icon-plus"
-                                            update=":datatable @form :password_displayer"
+                                            update=":form_datatable @form"
                                             action="#{utilisateursBean.ajouter()}"/>
                                     </div>
                                 </div>

@@ -33,7 +33,7 @@
                 users-by-username-query=
 		    " select login,password,enabled from Utilisateur where login = ? "
                 authorities-by-username-query=
-		    " select login,groupe_nom from Utilisateur where login = ? " />
+		    " select utilisateurs_login,groupes_nom from Utilisateur_Groupe where login = ? " />
         </authentication-provider>
         <authentication-provider>
             <user-service>

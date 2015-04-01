@@ -7,9 +7,9 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 
 /**
  * @author paoesco
@@ -21,7 +21,7 @@ import javax.persistence.OneToMany;
 public class Groupe implements Serializable {
 
     public static final String QUERY_LISTE_ALL = "getGroupes";
-    
+
     public static final String ROLE_GESTIONNAIRE = "ROLE_GESTIONNAIRE";
 
     @Id
@@ -30,7 +30,7 @@ public class Groupe implements Serializable {
 
     private String libelle;
 
-    @OneToMany(mappedBy = "groupe")
+    @ManyToMany(mappedBy = "groupes")
     private final Set<Utilisateur> utilisateurs;
 
     protected Groupe() {
@@ -38,7 +38,7 @@ public class Groupe implements Serializable {
     }
 
     public Groupe(String nom, String libelle) {
-        if (nom == null || nom.isEmpty()){
+        if (nom == null || nom.isEmpty()) {
             throw new IllegalArgumentException("Le nom est obligatoire");
         }
         this.utilisateurs = new HashSet<>();

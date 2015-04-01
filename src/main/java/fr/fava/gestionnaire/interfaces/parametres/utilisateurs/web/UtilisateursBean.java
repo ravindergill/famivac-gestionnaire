@@ -5,9 +5,12 @@ import fr.fava.gestionnaire.domain.model.Groupe;
 import fr.fava.gestionnaire.application.UtilisateurService;
 import fr.fava.gestionnaire.application.dto.AjouterUtilisateurDTO;
 import fr.fava.gestionnaire.application.dto.RetrieveUtilisateursDTO;
+import fr.fava.gestionnaire.domain.model.Utilisateur;
 import fr.fava.gestionnaire.interfaces.utilisateurs.facade.UtilisateurServiceFacade;
 import java.io.Serializable;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
@@ -15,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.event.CellEditEvent;
 
 /**
  * Backing bean des enfants.
@@ -53,7 +57,9 @@ public class UtilisateursBean implements Serializable {
                 .filter(g -> Groupe.ROLE_GESTIONNAIRE.equals(g.getNom()))
                 .findFirst()
                 .orElse(null);
-        form.setGroupe(groupeGestionnaire);
+        List<Groupe> initGroupes = new ArrayList<>();
+        initGroupes.add(groupeGestionnaire);
+        form.setGroupes(initGroupes);
     }
 
     public List<Groupe> completeGroupe(String query) {
@@ -101,6 +107,21 @@ public class UtilisateursBean implements Serializable {
         user.setEnabled(true);
         FacesMessage unlockMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, MessageFormat.format("L''utilisateur {0} {1} a été déverrouillé et peut à nouveau se connecter", user.getPrenom(), user.getNom()), null);
         FacesContext.getCurrentInstance().addMessage(null, unlockMessage);
+    }
+
+    public void onCellEdit(CellEditEvent event) {
+        RetrieveUtilisateursDTO dto = lazyModel.getRowData(event.getRowIndex());
+        List<Groupe> oldValue = (List<Groupe>) event.getOldValue();
+        List<Groupe> newValue = (List<Groupe>) event.getNewValue();
+
+        if (newValue != null && !newValue.equals(oldValue)) {
+            Utilisateur utilisateur = utilisateurService.retrieve(dto.getLogin());
+            utilisateur.setGroupes(new HashSet<>(newValue));
+            utilisateurService.update(utilisateur);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "L'utilisateur a été modifié", null);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+
     }
 
     public LazyUtilisateurDataModel getLazyModel() {

@@ -2,10 +2,14 @@ package fr.fava.gestionnaire.domain.model;
 
 import fr.fava.gestionnaire.domain.utils.Email;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -38,25 +42,26 @@ public class Utilisateur implements Serializable {
     @Column(nullable = false)
     private String prenom;
 
-    @ManyToOne(optional = false)
-    private Groupe groupe;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Groupe> groupes;
 
     private boolean enabled;
 
     protected Utilisateur() {
+        groupes = new HashSet<>();
     }
 
     public Utilisateur(
             String login,
             String email,
             String password,
-            Groupe groupe,
+            Set<Groupe> groupes,
             String nom,
             String prenom) {
         this.login = login;
         this.email = email;
         this.password = password;
-        this.groupe = groupe;
+        this.groupes = new HashSet<>(groupes);
         this.nom = nom;
         this.prenom = prenom;
         this.enabled = true;
@@ -98,12 +103,12 @@ public class Utilisateur implements Serializable {
         this.prenom = prenom;
     }
 
-    public Groupe getGroupe() {
-        return groupe;
+    public Set<Groupe> getGroupes() {
+        return Collections.unmodifiableSet(groupes);
     }
 
-    public void setGroupe(Groupe groupe) {
-        this.groupe = groupe;
+    public void setGroupes(Set<Groupe> groupes) {
+        this.groupes = new HashSet<>(groupes);
     }
 
     public boolean isEnabled() {

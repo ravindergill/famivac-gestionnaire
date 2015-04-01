@@ -41,4 +41,11 @@ public class LazyUtilisateurDataModel extends LazyDataModel<RetrieveUtilisateurs
         return datasource.subList(first, max);
     }
 
+    public RetrieveUtilisateursDTO getRowData(int rowIndex) {
+        if (rowIndex > datasource.size()) {
+            throw new IllegalArgumentException();
+        }
+        return datasource.get(rowIndex);
+    }
+
 }
