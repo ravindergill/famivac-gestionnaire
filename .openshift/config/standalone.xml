@@ -351,6 +351,7 @@
                 <smtp-server outbound-socket-binding-ref="mail-smtp"/>
             </mail-session>
         </subsystem>
+		<!--
         <subsystem xmlns="urn:jboss:domain:messaging:2.0">
             <hornetq-server>
                 <journal-file-size>102400</journal-file-size>
@@ -383,7 +384,7 @@
                     </security-setting>
                 </security-settings>
                 <address-settings>
-                    <!--default for catch all-->
+                    
                     <address-setting match="#">
                         <dead-letter-address>jms.queue.DLQ</dead-letter-address>
                         <expiry-address>jms.queue.ExpiryQueue</expiry-address>
@@ -416,7 +417,7 @@
                         </connectors>
                         <entries>
                             <entry name="java:/JmsXA"/>
-                            <!-- Global JNDI entry used to provide a default JMS Connection factory to EE application -->
+                           
                             <entry name="java:jboss/DefaultJMSConnectionFactory"/>
                         </entries>
                     </pooled-connection-factory>
@@ -431,6 +432,7 @@
                 </jms-destinations>
             </hornetq-server>
         </subsystem>
+		-->
         <subsystem xmlns="urn:jboss:domain:naming:2.0">
             <remote-naming/>
         </subsystem>
