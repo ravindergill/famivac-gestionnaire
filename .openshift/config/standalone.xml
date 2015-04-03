@@ -8,7 +8,7 @@
         <extension module="org.jboss.as.deployment-scanner"/>
         <extension module="org.jboss.as.ee"/>
         <extension module="org.jboss.as.ejb3"/>
-        <extension module="org.jboss.as.jacorb"/>
+        <!--<extension module="org.jboss.as.jacorb"/>-->
         <extension module="org.jboss.as.jaxrs"/>
         <extension module="org.jboss.as.jdr"/>
         <extension module="org.jboss.as.jmx"/>
@@ -107,12 +107,14 @@
             <logger category="sun.rmi">
                 <level name="WARN"/>
             </logger>
+		<!--
             <logger category="jacorb">
                 <level name="WARN"/>
             </logger>
             <logger category="jacorb.config">
                 <level name="ERROR"/>
             </logger>
+		-->
             <root-logger>
                 <level name="INFO"/>
                 <handlers>
@@ -279,13 +281,13 @@
                 </replicated-cache>
             </cache-container>
         </subsystem>
-	
+	<!--
         <subsystem xmlns="urn:jboss:domain:jacorb:1.3">
             <orb socket-binding="jacorb" ssl-socket-binding="jacorb-ssl">
                 <initializers transactions="spec" security="identity"/>
             </orb>
         </subsystem>
-	
+	-->
         <subsystem xmlns="urn:jboss:domain:jaxrs:1.0"/>
 	
         <subsystem xmlns="urn:jboss:domain:jca:2.0">
@@ -525,13 +527,15 @@
             <loopback-address value="${env.OPENSHIFT_WILDFLY_IP}"/>
         </interface>
         <!-- TODO - only show this if the jacorb subsystem is added  -->
-        <interface name="unsecure">
+        <!--<interface name="unsecure">-->
             <!--
               ~  Used for IIOP sockets in the standard configuration.
               ~                  To secure JacORB you need to setup SSL 
               -->
+		<!--
             <inet-address value="${env.OPENSHIFT_WILDFLY_IP}"/>
         </interface>
+	-->
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
         <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
@@ -540,9 +544,11 @@
         <socket-binding name="ajp" port="${jboss.ajp.port:8009}"/>
         <socket-binding name="http" port="${jboss.http.port:8080}"/>
         <socket-binding name="https" port="${jboss.https.port:8443}"/>
-        <socket-binding name="jacorb" interface="unsecure" port="3528"/>
+        <!--
+	<socket-binding name="jacorb" interface="unsecure" port="3528"/>
         <socket-binding name="jacorb-ssl" interface="unsecure" port="3529"/>
-        <socket-binding name="txn-recovery-environment" port="4712"/>
+        -->
+	<socket-binding name="txn-recovery-environment" port="4712"/>
         <socket-binding name="txn-status-manager" port="4713"/>
         <outbound-socket-binding name="mail-smtp">
             <remote-destination host="localhost" port="25"/>
