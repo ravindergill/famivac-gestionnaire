@@ -1,8 +1,6 @@
 package fr.fava.gestionnaire.application;
 
 import fr.fava.gestionnaire.application.exceptions.WrongPasswordException;
-import fr.fava.gestionnaire.application.dto.RetrieveUtilisateursDTO;
-import fr.fava.gestionnaire.application.dto.AjouterUtilisateurDTO;
 import fr.fava.gestionnaire.domain.model.Groupe;
 import fr.fava.gestionnaire.domain.model.Utilisateur;
 import java.util.ArrayList;
@@ -11,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * @author paoesco
  */
-@Stateless
+@Singleton
 public class UtilisateurService {
     
     @Inject

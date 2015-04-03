@@ -6,12 +6,15 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -19,13 +22,16 @@ import javax.persistence.OneToMany;
  * @author paoesco
  */
 @Entity
+@NamedQuery(name = Inscripteur.QUERY_RETRIEVE_ALL, query = "select i from Inscripteur i order by i.nom,i.prenom,i.organisme")
 public class Inscripteur implements Serializable {
+
+    public static final String QUERY_RETRIEVE_ALL = "insctipteurRetrieveAll";
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private final Set<Enfant> enfants;
 
     @Enumerated(EnumType.STRING)
@@ -151,6 +157,14 @@ public class Inscripteur implements Serializable {
 
     public void setResponsableLegal(boolean responsableLegal) {
         this.responsableLegal = responsableLegal;
+    }
+
+    public boolean isParticulier() {
+        return TypeInscripteur.PARTICULIER.equals(type);
+    }
+
+    public boolean isTypeServiceSocialOuAutre() {
+        return TypeInscripteur.SERVICE_SOCIAL.equals(type) || TypeInscripteur.AUTRE.equals(type);
     }
 
 }

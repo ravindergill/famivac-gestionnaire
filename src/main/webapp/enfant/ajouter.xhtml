@@ -16,6 +16,7 @@
 
             <ui:define name="metadata">
                 <f:metadata>
+                    <f:viewParam name="inscripteurId" value="#{ajouterEnfantBean.inscripteurId}"></f:viewParam>
                     <f:viewAction action="#{ajouterEnfantBean.init()}"></f:viewAction>
                 </f:metadata>
             </ui:define>
@@ -28,7 +29,11 @@
                             <p:focus context="form" />
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Enfant
+                                    Enfant (Inscripteur : 
+                                    <h:outputText rendered="#{ajouterEnfantBean.form.inscripteur.isParticulier()}" value="#{ajouterEnfantBean.form.inscripteur.prenom} "></h:outputText> 
+                                    <h:outputText rendered="#{ajouterEnfantBean.form.inscripteur.isParticulier()}" value="#{ajouterEnfantBean.form.inscripteur.nom}"></h:outputText>
+                                    <h:outputText rendered="#{ajouterEnfantBean.form.inscripteur.isTypeServiceSocialOuAutre()}" value="#{ajouterEnfantBean.form.inscripteur.organisme}"></h:outputText>
+                                    )
                                 </div>
                                 <div class="panel-body">
                                     <div class="form-group">
@@ -161,158 +166,6 @@
                                 </div>
                             </div>
 
-
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    Inscripteur
-                                </div>
-                                <div class="panel-body">
-                                    <p:outputPanel id="panel_inscripteur">
-                                        <div class="form-group">
-                                            <p:outputLabel for="inscripteur_type" value="Type" styleClass="col-sm-3 control-label" /> 
-                                            <div class="col-md-8">
-                                                <p:selectOneRadio 
-                                                    id="inscripteur_type"
-                                                    required="true"
-                                                    value="#{ajouterEnfantBean.form.inscripteur.type}">
-                                                    <f:selectItem itemLabel="Particulier" itemValue="PARTICULIER" />
-                                                    <f:selectItem itemLabel="Service Social" itemValue="SERVICE_SOCIAL" />
-                                                    <f:selectItem itemLabel="Maison d'enfants ou autre Collectivité" itemValue="AUTRE" />
-                                                    <p:ajax event="change" update="panel_inscripteur"></p:ajax>
-                                                </p:selectOneRadio>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:outputLabel 
-                                                for="inscripteur_nom" 
-                                                value="Nom"
-                                                styleClass="col-sm-3 control-label"
-                                                rendered="#{ajouterEnfantBean.typeInscripteurParticulier}"/> 
-                                            <div class="col-md-8">
-                                                <p:inputText
-                                                    id="inscripteur_nom"
-                                                    styleClass="form-control" 
-                                                    maxlength="255"
-                                                    required="true"
-                                                    value="#{ajouterEnfantBean.form.inscripteur.nom}"
-                                                    rendered="#{ajouterEnfantBean.typeInscripteurParticulier}"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:outputLabel 
-                                                for="inscripteur_prenom" 
-                                                value="Prénom"
-                                                styleClass="col-sm-3 control-label"
-                                                rendered="#{ajouterEnfantBean.typeInscripteurParticulier}"/> 
-                                            <div class="col-md-8">
-                                                <p:inputText
-                                                    id="inscripteur_prenom"
-                                                    styleClass="form-control" 
-                                                    maxlength="255"
-                                                    required="true"
-                                                    value="#{ajouterEnfantBean.form.inscripteur.prenom}"
-                                                    rendered="#{ajouterEnfantBean.typeInscripteurParticulier}"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:outputLabel 
-                                                for="inscripteur_organisme" 
-                                                value="Organisme"
-                                                styleClass="col-sm-3 control-label"
-                                                rendered="#{ajouterEnfantBean.typeServiceSocialOuAutre}"/> 
-                                            <div class="col-md-8">
-                                                <p:inputText
-                                                    id="inscripteur_organisme"
-                                                    styleClass="form-control" 
-                                                    maxlength="255"
-                                                    required="true"
-                                                    value="#{ajouterEnfantBean.form.inscripteur.organisme}"
-                                                    rendered="#{ajouterEnfantBean.typeServiceSocialOuAutre}"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:outputLabel for="inscripteur_la1" value="Ligne adresse 1" styleClass="col-sm-3 control-label" />
-                                            <div class="col-md-8">
-                                                <p:inputText 
-                                                    id="inscripteur_la1" 
-                                                    styleClass="form-control" 
-                                                    required="true"
-                                                    value="#{ajouterEnfantBean.form.inscripteur.adresse.ligneAdresseUne}"
-                                                    maxlength="255"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:outputLabel for="inscripteur_la2" value="Ligne adresse 2" styleClass="col-sm-3 control-label" />
-                                            <div class="col-md-8">
-                                                <p:inputText 
-                                                    id="inscripteur_la2" 
-                                                    styleClass="form-control" 
-                                                    value="#{ajouterEnfantBean.form.inscripteur.adresse.ligneAdresseDeux}"
-                                                    maxlength="255"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:outputLabel for="inscripteur_commune" value="Commune" styleClass="col-sm-3 control-label" />
-                                            <div class="col-md-8">
-                                                <p:autoComplete
-                                                    id="inscripteur_commune"
-                                                    required="true"
-                                                    dropdown="true"
-                                                    converter="#{communeConverter}"
-                                                    cache="true"
-                                                    forceSelection="true"
-                                                    var="commune"
-                                                    value="#{ajouterEnfantBean.form.inscripteur.adresse.commune}"
-                                                    completeMethod="#{ajouterEnfantBean.completeCommune}"
-                                                    itemLabel="#{commune.label}"
-                                                    itemValue="#{commune}">
-                                                </p:autoComplete>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:outputLabel for="inscripteur_referent" value="Personne référente" styleClass="col-sm-3 control-label" />
-                                            <div class="col-md-8">
-                                                <p:inputText 
-                                                    id="inscripteur_referent" 
-                                                    styleClass="form-control" 
-                                                    required="true"
-                                                    value="#{ajouterEnfantBean.form.inscripteur.personneReferente}"
-                                                    maxlength="255"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:outputLabel for="inscripteur_tel" value="Téléphone" styleClass="col-sm-3 control-label" /> 
-                                            <div class="col-md-8">
-                                                <p:inputText
-                                                    id="inscripteur_tel"
-                                                    styleClass="form-control" 
-                                                    maxlength="255"
-                                                    value="#{ajouterEnfantBean.form.inscripteur.telephone}"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:outputLabel for="inscripteur_fax" value="Fax" styleClass="col-sm-3 control-label" /> 
-                                            <div class="col-md-8">
-                                                <p:inputText
-                                                    id="inscripteur_fax"
-                                                    styleClass="form-control" 
-                                                    maxlength="255"
-                                                    value="#{ajouterEnfantBean.form.inscripteur.fax}"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:outputLabel for="inscripteur_email" value="Email" styleClass="col-sm-3 control-label" /> 
-                                            <div class="col-md-8">
-                                                <p:inputText
-                                                    id="inscripteur_email"
-                                                    styleClass="form-control" 
-                                                    maxlength="255"
-                                                    value="#{ajouterEnfantBean.form.inscripteur.email}"/>
-                                            </div>
-                                        </div>
-                                    </p:outputPanel>
-                                </div>
-                            </div>
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     Responsable légal

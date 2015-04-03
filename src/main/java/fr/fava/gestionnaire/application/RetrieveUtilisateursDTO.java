@@ -1,4 +1,4 @@
-package fr.fava.gestionnaire.application.dto;
+package fr.fava.gestionnaire.application;
 
 import fr.fava.gestionnaire.domain.model.Groupe;
 import java.util.ArrayList;

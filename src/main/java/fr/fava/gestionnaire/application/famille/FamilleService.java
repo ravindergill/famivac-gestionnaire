@@ -79,6 +79,12 @@ public class FamilleService {
         entityManager.remove(famille);
     }
 
+    public void deleteChambre(long id) {
+        Chambre entity = entityManager.find(Chambre.class, id);
+        entity.getFamille().retirerChambre(entity);
+        entityManager.remove(entity);
+    }
+
     public Long addMembre(long familleId, MembreDTO request) {
         Famille famille = entityManager.find(Famille.class, familleId);
         if (famille == null) {
@@ -99,7 +105,7 @@ public class FamilleService {
 
     }
 
-    public Chambre addChambre(@PathParam("familleId") long familleId, Chambre entity) {
+    public Chambre addChambre(long familleId, Chambre entity) {
         Famille famille = entityManager.find(Famille.class, familleId);
         if (famille == null) {
             throw new IllegalArgumentException("La famille n'existe pas");

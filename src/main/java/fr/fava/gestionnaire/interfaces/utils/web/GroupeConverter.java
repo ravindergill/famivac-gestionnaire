@@ -1,6 +1,6 @@
 package fr.fava.gestionnaire.interfaces.utils.web;
 
-import fr.fava.gestionnaire.application.groupe.GroupeService;
+import fr.fava.gestionnaire.application.GroupeService;
 import fr.fava.gestionnaire.domain.model.Groupe;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;

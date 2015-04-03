@@ -1,6 +1,5 @@
 package fr.fava.gestionnaire.interfaces.familles.web;
 
-import fr.fava.gestionnaire.application.famille.ChambreService;
 import fr.fava.gestionnaire.application.famille.FamilleService;
 import fr.fava.gestionnaire.application.famille.MembreService;
 import fr.fava.gestionnaire.application.famille.MembreDTO;
@@ -45,8 +44,6 @@ public class FamilleDetailsBean implements Serializable, CompleteCommune {
     private MembreService membreService;
     @Inject
     private CommuneService communeService;
-    @Inject
-    private ChambreService chambreService;
 
     /**
      * Initialisation du bean.
@@ -111,7 +108,7 @@ public class FamilleDetailsBean implements Serializable, CompleteCommune {
     }
 
     public void supprimerChambre(Chambre chambre) {
-        chambreService.delete(chambre.getId());
+        familleService.deleteChambre(chambre.getId());
         init();
     }
 

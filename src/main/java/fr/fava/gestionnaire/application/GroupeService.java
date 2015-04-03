@@ -1,15 +1,15 @@
-package fr.fava.gestionnaire.application.groupe;
+package fr.fava.gestionnaire.application;
 
 import fr.fava.gestionnaire.domain.model.Groupe;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 /**
  * @author paoesco
  */
-@Stateless
+@Singleton
 public class GroupeService {
 
     @Inject

@@ -1,10 +1,8 @@
-package fr.fava.gestionnaire.interfaces.enfants.web;
+package fr.fava.gestionnaire.interfaces.inscripteurs.web;
 
 import fr.fava.gestionnaire.application.CommuneService;
-import fr.fava.gestionnaire.application.enfant.EnfantService;
 import fr.fava.gestionnaire.application.enfant.InscripteurService;
 import fr.fava.gestionnaire.domain.model.Commune;
-import fr.fava.gestionnaire.domain.model.enfant.Enfant;
 import fr.fava.gestionnaire.domain.model.enfant.Inscripteur;
 import fr.fava.gestionnaire.domain.model.enfant.TypeInscripteur;
 import java.io.Serializable;
@@ -20,33 +18,26 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class AjouterEnfantBean implements Serializable {
-
-    private long inscripteurId;
+public class AjouterInscripteurBean implements Serializable {
 
     private List<Commune> communes;
 
-    private Enfant form;
+    private Inscripteur form;
 
     @Inject
     private CommuneService communeService;
 
     @Inject
-    private EnfantService enfantService;
-
-    @Inject
     private InscripteurService inscripteurService;
 
     public void init() {
-        form = new Enfant();
-        Inscripteur inscripteur = inscripteurService.retrieve(inscripteurId);
-        form.setInscripteur(inscripteur);
+        form = new Inscripteur();
         communes = communeService.retrieve();
     }
 
     public String ajouter() {
-        Long id = enfantService.create(form);
-        return "/enfant/details.xhtml?id=" + id + "&faces-redirect=true";
+        Long id = inscripteurService.create(form);
+        return "/inscripteur/details.xhtml?id=" + id + "&faces-redirect=true";
     }
 
     public List<Commune> completeCommune(String query) {
@@ -60,16 +51,16 @@ public class AjouterEnfantBean implements Serializable {
     }
 
     public boolean isTypeInscripteurParticulier() {
-        return TypeInscripteur.PARTICULIER.equals(form.getInscripteur().getType());
+        return TypeInscripteur.PARTICULIER.equals(form.getType());
     }
 
     public boolean isTypeServiceSocialOuAutre() {
-        return TypeInscripteur.SERVICE_SOCIAL.equals(form.getInscripteur().getType())
-                || TypeInscripteur.AUTRE.equals(form.getInscripteur().getType());
+        return TypeInscripteur.SERVICE_SOCIAL.equals(form.getType())
+                || TypeInscripteur.AUTRE.equals(form.getType());
     }
 
     public boolean isInscripteurEstResponsableLegal() {
-        return form.getInscripteur().isResponsableLegal();
+        return form.isResponsableLegal();
     }
 
     public List<Commune> getCommunes() {
@@ -84,20 +75,12 @@ public class AjouterEnfantBean implements Serializable {
         return communeService;
     }
 
-    public Enfant getForm() {
+    public Inscripteur getForm() {
         return form;
     }
 
-    public void setForm(Enfant form) {
+    public void setForm(Inscripteur form) {
         this.form = form;
-    }
-
-    public long getInscripteurId() {
-        return inscripteurId;
-    }
-
-    public void setInscripteurId(long inscripteurId) {
-        this.inscripteurId = inscripteurId;
     }
 
 }

@@ -7,4 +7,5 @@ package fr.fava.gestionnaire.domain.model.enfant;
 public enum TypeInscripteur {
 
     PARTICULIER, SERVICE_SOCIAL, AUTRE;
+
 }
