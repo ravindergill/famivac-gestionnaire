@@ -287,7 +287,7 @@
         </subsystem>
 	-->
         <subsystem xmlns="urn:jboss:domain:jaxrs:1.0"/>
-	<!--
+	
         <subsystem xmlns="urn:jboss:domain:jca:2.0">
             <archive-validation enabled="true" fail-on-error="true" fail-on-warn="false"/>
             <bean-validation enabled="true"/>
@@ -307,7 +307,7 @@
             </default-workmanager>
             <cached-connection-manager/>
         </subsystem>
-	-->
+	
         <subsystem xmlns="urn:jboss:domain:jdr:1.0"/>
         <subsystem xmlns="urn:jboss:domain:jgroups:2.0" default-stack="tcp">
             <stack name="tcp">
