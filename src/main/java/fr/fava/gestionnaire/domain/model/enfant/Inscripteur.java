@@ -26,7 +26,7 @@ public class Inscripteur implements Serializable {
     private Long id;
 
     @OneToMany
-    private Set<Enfant> enfants;
+    private final Set<Enfant> enfants;
 
     @Enumerated(EnumType.STRING)
     private TypeInscripteur type;
@@ -34,6 +34,8 @@ public class Inscripteur implements Serializable {
     private String nom;
 
     private String prenom;
+
+    private String organisme;
 
     @Embedded
     private Adresse adresse;
@@ -93,6 +95,14 @@ public class Inscripteur implements Serializable {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public String getOrganisme() {
+        return organisme;
+    }
+
+    public void setOrganisme(String organisme) {
+        this.organisme = organisme;
     }
 
     public Adresse getAdresse() {

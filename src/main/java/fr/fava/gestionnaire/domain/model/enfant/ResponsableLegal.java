@@ -57,7 +57,7 @@ public class ResponsableLegal implements Serializable {
         if (!inscripteur.isResponsableLegal()) {
             throw new IllegalArgumentException("L'inscripteur doit être le responsable légal");
         }
-        enfants = inscripteur.getEnfants();
+        enfants = new HashSet<>(inscripteur.getEnfants());
         type = inscripteur.getType();
         nom = inscripteur.getNom();
         prenom = inscripteur.getPrenom();

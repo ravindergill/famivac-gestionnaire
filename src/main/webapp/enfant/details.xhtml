@@ -161,7 +161,7 @@
                                                 required="true"
                                                 styleClass="form-control"
                                                 rendered="#{enfantDetailsBean.typeInscripteurParticulier}"
-                                                value="#{ajouterEnfantBean.form.inscripteur.nom}"/>
+                                                value="#{enfantDetailsBean.form.inscripteur.nom}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -177,7 +177,7 @@
                                                 rendered="#{enfantDetailsBean.typeInscripteurParticulier}"
                                                 required="true"
                                                 styleClass="form-control"
-                                                value="#{enfantDetailsBean.form.inscripteur.personneReferente}" />
+                                                value="#{enfantDetailsBean.form.inscripteur.prenom}" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -193,7 +193,7 @@
                                                 required="true"
                                                 styleClass="form-control"
                                                 rendered="#{enfantDetailsBean.typeServiceSocialOuAutre}"
-                                                value="#{enfantDetailsBean.form.inscripteur.nom}"/>
+                                                value="#{enfantDetailsBean.form.inscripteur.organisme}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -268,8 +268,7 @@
                                                 id="inscripteur_tel"
                                                 maxlength="255"
                                                 styleClass="form-control"
-                                                value="#{enfantDetailsBean.form.inscripteur.telephone}"
-                                                required="true"/>
+                                                value="#{enfantDetailsBean.form.inscripteur.telephone}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -282,8 +281,7 @@
                                                 id="inscripteur_fax"
                                                 maxlength="255"
                                                 styleClass="form-control"
-                                                value="#{enfantDetailsBean.form.inscripteur.fax}"
-                                                required="true"/>
+                                                value="#{enfantDetailsBean.form.inscripteur.fax}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -296,8 +294,7 @@
                                                 id="inscripteur_email"
                                                 maxlength="255"
                                                 styleClass="form-control"
-                                                value="#{enfantDetailsBean.form.inscripteur.email}"
-                                                required="true"/>
+                                                value="#{enfantDetailsBean.form.inscripteur.email}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
