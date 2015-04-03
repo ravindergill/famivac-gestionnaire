@@ -138,7 +138,8 @@
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:datasources:2.0">
             <datasources>
-                <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
+                <!--
+		<datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
                     <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
                     <driver>h2</driver>
                     <security>
@@ -146,6 +147,7 @@
                         <password>sa</password>
                     </security>
                 </datasource>
+		-->
                 <datasource jndi-name="java:jboss/datasources/MySQLDS" enabled="${mysql.enabled}" use-java-context="true" pool-name="MySQLDS" use-ccm="true">
                     <connection-url>jdbc:mysql://${env.OPENSHIFT_MYSQL_DB_HOST}:${env.OPENSHIFT_MYSQL_DB_PORT}/${env.OPENSHIFT_APP_NAME}</connection-url>
                     <driver>mysql</driver>
@@ -164,9 +166,11 @@
                     </pool>
                 </datasource>
                 <drivers>
+			<!--
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                     </driver>
+			-->
                     <driver name="mysql" module="com.mysql.jdbc">
                         <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
                     </driver>
@@ -275,12 +279,15 @@
                 </replicated-cache>
             </cache-container>
         </subsystem>
+	<!--
         <subsystem xmlns="urn:jboss:domain:jacorb:1.3">
             <orb socket-binding="jacorb" ssl-socket-binding="jacorb-ssl">
                 <initializers transactions="spec" security="identity"/>
             </orb>
         </subsystem>
+	-->
         <subsystem xmlns="urn:jboss:domain:jaxrs:1.0"/>
+	<!--
         <subsystem xmlns="urn:jboss:domain:jca:2.0">
             <archive-validation enabled="true" fail-on-error="true" fail-on-warn="false"/>
             <bean-validation enabled="true"/>
@@ -300,6 +307,7 @@
             </default-workmanager>
             <cached-connection-manager/>
         </subsystem>
+	-->
         <subsystem xmlns="urn:jboss:domain:jdr:1.0"/>
         <subsystem xmlns="urn:jboss:domain:jgroups:2.0" default-stack="tcp">
             <stack name="tcp">
@@ -351,7 +359,7 @@
                 <smtp-server outbound-socket-binding-ref="mail-smtp"/>
             </mail-session>
         </subsystem>
-		<!--
+	<!--
         <subsystem xmlns="urn:jboss:domain:messaging:2.0">
             <hornetq-server>
                 <journal-file-size>102400</journal-file-size>
@@ -432,7 +440,7 @@
                 </jms-destinations>
             </hornetq-server>
         </subsystem>
-		-->
+	-->
         <subsystem xmlns="urn:jboss:domain:naming:2.0">
             <remote-naming/>
         </subsystem>
